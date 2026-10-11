@@ -1,0 +1,15 @@
+# Model weights are distributed by Hugging Face, not by this repository
+*.safetensors
+ModelTransfer/
+# Xcode
+xcuserdata/
+DerivedData/
+build/
+.build/
+*.xcuserstate
+.swiftpm/
+# macOS
+.DS_Store
+# Python
+__pycache__/
+acceptance_result.csv

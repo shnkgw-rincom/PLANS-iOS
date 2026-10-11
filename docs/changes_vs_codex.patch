@@ -1,0 +1,2730 @@
+diff --git a/.gitignore b/.gitignore
+new file mode 100644
+index 0000000..5a66e88
+--- /dev/null
++++ b/.gitignore
+@@ -0,0 +1,15 @@
++# Model weights are distributed by Hugging Face, not by this repository
++*.safetensors
++ModelTransfer/
++# Xcode
++xcuserdata/
++DerivedData/
++build/
++.build/
++*.xcuserstate
++.swiftpm/
++# macOS
++.DS_Store
++# Python
++__pycache__/
++acceptance_result.csv
+diff --git a/LICENSE b/LICENSE
+new file mode 100644
+index 0000000..92f6960
+--- /dev/null
++++ b/LICENSE
+@@ -0,0 +1,33 @@
++MIT License
++
++Copyright (c) 2026 Shin-ichi Nakagawa
++
++Permission is hereby granted, free of charge, to any person obtaining a copy
++of this software and associated documentation files (the "Software"), to deal
++in the Software without restriction, including without limitation the rights
++to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
++copies of the Software, and to permit persons to whom the Software is
++furnished to do so, subject to the following conditions:
++
++The above copyright notice and this permission notice shall be included in all
++copies or substantial portions of the Software.
++
++THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
++AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
++LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
++OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
++SOFTWARE.
++
++---------------------------------------------------------------------------
++Not covered by this licence:
++
++- LocalNutrition/Resources/foods.json — food composition data from the
++  Standard Tables of Food Composition in Japan 2020 (Eighth Revised Edition),
++  Supplement 2023, Ministry of Education, Culture, Sports, Science and
++  Technology, Japan (「日本食品標準成分表（八訂）増補2023年から引用」).
++  Free use with citation of the source, as stated by MEXT.
++- LocalNutrition/Resources/Model/ — tokenizer and configuration files of
++  Qwen3-VL (mlx-community conversion); see the model card for its licence.
++- Third-party Swift packages — see THIRD_PARTY_NOTICES.txt.
+diff --git a/LocalNutrition.xcodeproj/project.pbxproj b/LocalNutrition.xcodeproj/project.pbxproj
+index f5ed6dc..7585c35 100644
+--- a/LocalNutrition.xcodeproj/project.pbxproj
++++ b/LocalNutrition.xcodeproj/project.pbxproj
+@@ -23,10 +23,10 @@
+ 		</dict>
+ 		<key>000000000000000000000002</key>
+ 		<dict>
+-			<key>isa</key>
+-			<string>PBXBuildFile</string>
+ 			<key>fileRef</key>
+ 			<string>000000000000000000000001</string>
++			<key>isa</key>
++			<string>PBXBuildFile</string>
+ 		</dict>
+ 		<key>000000000000000000000003</key>
+ 		<dict>
+@@ -41,10 +41,10 @@
+ 		</dict>
+ 		<key>000000000000000000000004</key>
+ 		<dict>
+-			<key>isa</key>
+-			<string>PBXBuildFile</string>
+ 			<key>fileRef</key>
+ 			<string>000000000000000000000003</string>
++			<key>isa</key>
++			<string>PBXBuildFile</string>
+ 		</dict>
+ 		<key>000000000000000000000005</key>
+ 		<dict>
+@@ -59,10 +59,10 @@
+ 		</dict>
+ 		<key>000000000000000000000006</key>
+ 		<dict>
+-			<key>isa</key>
+-			<string>PBXBuildFile</string>
+ 			<key>fileRef</key>
+ 			<string>000000000000000000000005</string>
++			<key>isa</key>
++			<string>PBXBuildFile</string>
+ 		</dict>
+ 		<key>000000000000000000000007</key>
+ 		<dict>
+@@ -77,10 +77,10 @@
+ 		</dict>
+ 		<key>000000000000000000000008</key>
+ 		<dict>
+-			<key>isa</key>
+-			<string>PBXBuildFile</string>
+ 			<key>fileRef</key>
+ 			<string>000000000000000000000007</string>
++			<key>isa</key>
++			<string>PBXBuildFile</string>
+ 		</dict>
+ 		<key>000000000000000000000009</key>
+ 		<dict>
+@@ -95,10 +95,10 @@
+ 		</dict>
+ 		<key>00000000000000000000000A</key>
+ 		<dict>
+-			<key>isa</key>
+-			<string>PBXBuildFile</string>
+ 			<key>fileRef</key>
+ 			<string>000000000000000000000009</string>
++			<key>isa</key>
++			<string>PBXBuildFile</string>
+ 		</dict>
+ 		<key>00000000000000000000000B</key>
+ 		<dict>
+@@ -113,28 +113,10 @@
+ 		</dict>
+ 		<key>00000000000000000000000C</key>
+ 		<dict>
+-			<key>isa</key>
+-			<string>PBXBuildFile</string>
+ 			<key>fileRef</key>
+ 			<string>00000000000000000000000B</string>
+-		</dict>
+-		<key>00000000000000000000000D</key>
+-		<dict>
+-			<key>isa</key>
+-			<string>PBXFileReference</string>
+-			<key>lastKnownFileType</key>
+-			<string>folder</string>
+-			<key>path</key>
+-			<string>Samples</string>
+-			<key>sourceTree</key>
+-			<string>&lt;group&gt;</string>
+-		</dict>
+-		<key>00000000000000000000000E</key>
+-		<dict>
+ 			<key>isa</key>
+ 			<string>PBXBuildFile</string>
+-			<key>fileRef</key>
+-			<string>00000000000000000000000D</string>
+ 		</dict>
+ 		<key>00000000000000000000000F</key>
+ 		<dict>
+@@ -149,21 +131,20 @@
+ 		</dict>
+ 		<key>000000000000000000000010</key>
+ 		<dict>
+-			<key>isa</key>
+-			<string>PBXBuildFile</string>
+ 			<key>fileRef</key>
+ 			<string>00000000000000000000000F</string>
++			<key>isa</key>
++			<string>PBXBuildFile</string>
+ 		</dict>
+ 		<key>000000000000000000000011</key>
+ 		<dict>
+-			<key>isa</key>
+-			<string>PBXGroup</string>
+ 			<key>children</key>
+ 			<array>
+ 				<string>00000000000000000000000B</string>
+-				<string>00000000000000000000000D</string>
+ 				<string>00000000000000000000000F</string>
+ 			</array>
++			<key>isa</key>
++			<string>PBXGroup</string>
+ 			<key>path</key>
+ 			<string>Resources</string>
+ 			<key>sourceTree</key>
+@@ -171,10 +152,9 @@
+ 		</dict>
+ 		<key>000000000000000000000012</key>
+ 		<dict>
+-			<key>isa</key>
+-			<string>PBXGroup</string>
+ 			<key>children</key>
+ 			<array>
++				<string>0000000000000000000000A1</string>
+ 				<string>000000000000000000000001</string>
+ 				<string>000000000000000000000003</string>
+ 				<string>000000000000000000000005</string>
+@@ -182,6 +162,8 @@
+ 				<string>000000000000000000000009</string>
+ 				<string>000000000000000000000011</string>
+ 			</array>
++			<key>isa</key>
++			<string>PBXGroup</string>
+ 			<key>path</key>
+ 			<string>LocalNutrition</string>
+ 			<key>sourceTree</key>
+@@ -189,10 +171,10 @@
+ 		</dict>
+ 		<key>000000000000000000000013</key>
+ 		<dict>
+-			<key>isa</key>
+-			<string>PBXFileReference</string>
+ 			<key>explicitFileType</key>
+ 			<string>wrapper.application</string>
++			<key>isa</key>
++			<string>PBXFileReference</string>
+ 			<key>path</key>
+ 			<string>LocalNutrition.app</string>
+ 			<key>sourceTree</key>
+@@ -200,12 +182,12 @@
+ 		</dict>
+ 		<key>000000000000000000000014</key>
+ 		<dict>
+-			<key>isa</key>
+-			<string>PBXGroup</string>
+ 			<key>children</key>
+ 			<array>
+ 				<string>000000000000000000000013</string>
+ 			</array>
++			<key>isa</key>
++			<string>PBXGroup</string>
+ 			<key>name</key>
+ 			<string>Products</string>
+ 			<key>sourceTree</key>
+@@ -213,13 +195,13 @@
+ 		</dict>
+ 		<key>000000000000000000000015</key>
+ 		<dict>
+-			<key>isa</key>
+-			<string>PBXGroup</string>
+ 			<key>children</key>
+ 			<array>
+ 				<string>000000000000000000000012</string>
+ 				<string>000000000000000000000014</string>
+ 			</array>
++			<key>isa</key>
++			<string>PBXGroup</string>
+ 			<key>sourceTree</key>
+ 			<string>&lt;group&gt;</string>
+ 		</dict>
+@@ -331,8 +313,6 @@
+ 		</dict>
+ 		<key>000000000000000000000021</key>
+ 		<dict>
+-			<key>isa</key>
+-			<string>PBXSourcesBuildPhase</string>
+ 			<key>buildActionMask</key>
+ 			<integer>2147483647</integer>
+ 			<key>files</key>
+@@ -342,29 +322,29 @@
+ 				<string>000000000000000000000006</string>
+ 				<string>000000000000000000000008</string>
+ 				<string>00000000000000000000000A</string>
++				<string>0000000000000000000000A2</string>
+ 			</array>
++			<key>isa</key>
++			<string>PBXSourcesBuildPhase</string>
+ 			<key>runOnlyForDeploymentPostprocessing</key>
+ 			<integer>0</integer>
+ 		</dict>
+ 		<key>000000000000000000000022</key>
+ 		<dict>
+-			<key>isa</key>
+-			<string>PBXResourcesBuildPhase</string>
+ 			<key>buildActionMask</key>
+ 			<integer>2147483647</integer>
+ 			<key>files</key>
+ 			<array>
+ 				<string>00000000000000000000000C</string>
+-				<string>00000000000000000000000E</string>
+ 				<string>000000000000000000000010</string>
+ 			</array>
++			<key>isa</key>
++			<string>PBXResourcesBuildPhase</string>
+ 			<key>runOnlyForDeploymentPostprocessing</key>
+ 			<integer>0</integer>
+ 		</dict>
+ 		<key>000000000000000000000023</key>
+ 		<dict>
+-			<key>isa</key>
+-			<string>PBXFrameworksBuildPhase</string>
+ 			<key>buildActionMask</key>
+ 			<integer>2147483647</integer>
+ 			<key>files</key>
+@@ -374,65 +354,65 @@
+ 				<string>00000000000000000000001D</string>
+ 				<string>000000000000000000000020</string>
+ 			</array>
++			<key>isa</key>
++			<string>PBXFrameworksBuildPhase</string>
+ 			<key>runOnlyForDeploymentPostprocessing</key>
+ 			<integer>0</integer>
+ 		</dict>
+ 		<key>000000000000000000000024</key>
+ 		<dict>
+-			<key>isa</key>
+-			<string>XCBuildConfiguration</string>
+ 			<key>buildSettings</key>
+ 			<dict>
+-				<key>CLANG_ENABLE_MODULES</key>
+-				<string>YES</string>
+ 				<key>CLANG_CXX_LANGUAGE_STANDARD</key>
+ 				<string>gnu++20</string>
++				<key>CLANG_ENABLE_MODULES</key>
++				<string>YES</string>
++				<key>DEBUG_INFORMATION_FORMAT</key>
++				<string>dwarf-with-dsym</string>
++				<key>ENABLE_USER_SCRIPT_SANDBOXING</key>
++				<string>YES</string>
+ 				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
+ 				<string>18.0</string>
+ 				<key>SDKROOT</key>
+ 				<string>iphoneos</string>
+-				<key>SWIFT_VERSION</key>
+-				<string>5.0</string>
+-				<key>ENABLE_USER_SCRIPT_SANDBOXING</key>
+-				<string>YES</string>
+ 				<key>SWIFT_OPTIMIZATION_LEVEL</key>
+ 				<string>-O</string>
+-				<key>DEBUG_INFORMATION_FORMAT</key>
+-				<string>dwarf-with-dsym</string>
++				<key>SWIFT_VERSION</key>
++				<string>5.0</string>
+ 			</dict>
++			<key>isa</key>
++			<string>XCBuildConfiguration</string>
+ 			<key>name</key>
+ 			<string>Debug</string>
+ 		</dict>
+ 		<key>000000000000000000000025</key>
+ 		<dict>
+-			<key>isa</key>
+-			<string>XCBuildConfiguration</string>
+ 			<key>buildSettings</key>
+ 			<dict>
+-				<key>CLANG_ENABLE_MODULES</key>
+-				<string>YES</string>
+ 				<key>CLANG_CXX_LANGUAGE_STANDARD</key>
+ 				<string>gnu++20</string>
++				<key>CLANG_ENABLE_MODULES</key>
++				<string>YES</string>
++				<key>DEBUG_INFORMATION_FORMAT</key>
++				<string>dwarf-with-dsym</string>
++				<key>ENABLE_USER_SCRIPT_SANDBOXING</key>
++				<string>YES</string>
+ 				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
+ 				<string>18.0</string>
+ 				<key>SDKROOT</key>
+ 				<string>iphoneos</string>
+-				<key>SWIFT_VERSION</key>
+-				<string>5.0</string>
+-				<key>ENABLE_USER_SCRIPT_SANDBOXING</key>
+-				<string>YES</string>
+ 				<key>SWIFT_OPTIMIZATION_LEVEL</key>
+ 				<string>-O</string>
+-				<key>DEBUG_INFORMATION_FORMAT</key>
+-				<string>dwarf-with-dsym</string>
++				<key>SWIFT_VERSION</key>
++				<string>5.0</string>
+ 			</dict>
++			<key>isa</key>
++			<string>XCBuildConfiguration</string>
+ 			<key>name</key>
+ 			<string>Release</string>
+ 		</dict>
+ 		<key>000000000000000000000026</key>
+ 		<dict>
+-			<key>isa</key>
+-			<string>XCConfigurationList</string>
+ 			<key>buildConfigurations</key>
+ 			<array>
+ 				<string>000000000000000000000024</string>
+@@ -442,105 +422,109 @@
+ 			<integer>0</integer>
+ 			<key>defaultConfigurationName</key>
+ 			<string>Debug</string>
++			<key>isa</key>
++			<string>XCConfigurationList</string>
+ 		</dict>
+ 		<key>000000000000000000000027</key>
+ 		<dict>
+-			<key>isa</key>
+-			<string>XCBuildConfiguration</string>
+ 			<key>buildSettings</key>
+ 			<dict>
+-				<key>PRODUCT_BUNDLE_IDENTIFIER</key>
+-				<string>jp.nakagawa.LocalNutrition</string>
+-				<key>PRODUCT_NAME</key>
+-				<string>$(TARGET_NAME)</string>
+-				<key>DEVELOPMENT_TEAM</key>
+-				<string>2LQRHTXUPJ</string>
++				<key>CODE_SIGN_ENTITLEMENTS</key>
++				<string>LocalNutrition/LocalNutrition.entitlements</string>
+ 				<key>CODE_SIGN_STYLE</key>
+ 				<string>Automatic</string>
++				<key>CURRENT_PROJECT_VERSION</key>
++				<string>1</string>
++				<key>DEBUG_INFORMATION_FORMAT</key>
++				<string>dwarf-with-dsym</string>
++				<key>DEVELOPMENT_TEAM</key>
++				<string></string>
+ 				<key>GENERATE_INFOPLIST_FILE</key>
+ 				<string>YES</string>
+ 				<key>INFOPLIST_FILE</key>
+ 				<string>LocalNutrition/Info.plist</string>
++				<key>INFOPLIST_KEY_CFBundleDisplayName</key>
++				<string>Local Nutrition</string>
+ 				<key>INFOPLIST_KEY_UIApplicationSceneManifest_Generation</key>
+ 				<string>YES</string>
+ 				<key>INFOPLIST_KEY_UILaunchScreen_Generation</key>
+ 				<string>YES</string>
+-				<key>INFOPLIST_KEY_CFBundleDisplayName</key>
+-				<string>Local Nutrition</string>
+-				<key>CURRENT_PROJECT_VERSION</key>
+-				<string>1</string>
++				<key>LD_RUNPATH_SEARCH_PATHS</key>
++				<array>
++					<string>$(inherited)</string>
++					<string>@executable_path/Frameworks</string>
++				</array>
+ 				<key>MARKETING_VERSION</key>
+ 				<string>0.1.0</string>
+-				<key>TARGETED_DEVICE_FAMILY</key>
+-				<string>1,2</string>
++				<key>PRODUCT_BUNDLE_IDENTIFIER</key>
++				<string>jp.nakagawa.LocalNutrition</string>
++				<key>PRODUCT_NAME</key>
++				<string>$(TARGET_NAME)</string>
+ 				<key>SUPPORTED_PLATFORMS</key>
+ 				<string>iphoneos iphonesimulator</string>
+ 				<key>SUPPORTS_MACCATALYST</key>
+ 				<string>NO</string>
+-				<key>LD_RUNPATH_SEARCH_PATHS</key>
+-				<array>
+-					<string>$(inherited)</string>
+-					<string>@executable_path/Frameworks</string>
+-				</array>
+ 				<key>SWIFT_OPTIMIZATION_LEVEL</key>
+ 				<string>-O</string>
+-				<key>DEBUG_INFORMATION_FORMAT</key>
+-				<string>dwarf-with-dsym</string>
++				<key>TARGETED_DEVICE_FAMILY</key>
++				<string>1,2</string>
+ 			</dict>
++			<key>isa</key>
++			<string>XCBuildConfiguration</string>
+ 			<key>name</key>
+ 			<string>Debug</string>
+ 		</dict>
+ 		<key>000000000000000000000028</key>
+ 		<dict>
+-			<key>isa</key>
+-			<string>XCBuildConfiguration</string>
+ 			<key>buildSettings</key>
+ 			<dict>
+-				<key>PRODUCT_BUNDLE_IDENTIFIER</key>
+-				<string>jp.nakagawa.LocalNutrition</string>
+-				<key>PRODUCT_NAME</key>
+-				<string>$(TARGET_NAME)</string>
+-				<key>DEVELOPMENT_TEAM</key>
+-				<string>2LQRHTXUPJ</string>
++				<key>CODE_SIGN_ENTITLEMENTS</key>
++				<string>LocalNutrition/LocalNutrition.entitlements</string>
+ 				<key>CODE_SIGN_STYLE</key>
+ 				<string>Automatic</string>
++				<key>CURRENT_PROJECT_VERSION</key>
++				<string>1</string>
++				<key>DEBUG_INFORMATION_FORMAT</key>
++				<string>dwarf-with-dsym</string>
++				<key>DEVELOPMENT_TEAM</key>
++				<string></string>
+ 				<key>GENERATE_INFOPLIST_FILE</key>
+ 				<string>YES</string>
+ 				<key>INFOPLIST_FILE</key>
+ 				<string>LocalNutrition/Info.plist</string>
++				<key>INFOPLIST_KEY_CFBundleDisplayName</key>
++				<string>Local Nutrition</string>
+ 				<key>INFOPLIST_KEY_UIApplicationSceneManifest_Generation</key>
+ 				<string>YES</string>
+ 				<key>INFOPLIST_KEY_UILaunchScreen_Generation</key>
+ 				<string>YES</string>
+-				<key>INFOPLIST_KEY_CFBundleDisplayName</key>
+-				<string>Local Nutrition</string>
+-				<key>CURRENT_PROJECT_VERSION</key>
+-				<string>1</string>
++				<key>LD_RUNPATH_SEARCH_PATHS</key>
++				<array>
++					<string>$(inherited)</string>
++					<string>@executable_path/Frameworks</string>
++				</array>
+ 				<key>MARKETING_VERSION</key>
+ 				<string>0.1.0</string>
+-				<key>TARGETED_DEVICE_FAMILY</key>
+-				<string>1,2</string>
++				<key>PRODUCT_BUNDLE_IDENTIFIER</key>
++				<string>jp.nakagawa.LocalNutrition</string>
++				<key>PRODUCT_NAME</key>
++				<string>$(TARGET_NAME)</string>
+ 				<key>SUPPORTED_PLATFORMS</key>
+ 				<string>iphoneos iphonesimulator</string>
+ 				<key>SUPPORTS_MACCATALYST</key>
+ 				<string>NO</string>
+-				<key>LD_RUNPATH_SEARCH_PATHS</key>
+-				<array>
+-					<string>$(inherited)</string>
+-					<string>@executable_path/Frameworks</string>
+-				</array>
+ 				<key>SWIFT_OPTIMIZATION_LEVEL</key>
+ 				<string>-O</string>
+-				<key>DEBUG_INFORMATION_FORMAT</key>
+-				<string>dwarf-with-dsym</string>
++				<key>TARGETED_DEVICE_FAMILY</key>
++				<string>1,2</string>
+ 			</dict>
++			<key>isa</key>
++			<string>XCBuildConfiguration</string>
+ 			<key>name</key>
+ 			<string>Release</string>
+ 		</dict>
+ 		<key>000000000000000000000029</key>
+ 		<dict>
+-			<key>isa</key>
+-			<string>XCConfigurationList</string>
+ 			<key>buildConfigurations</key>
+ 			<array>
+ 				<string>000000000000000000000027</string>
+@@ -550,11 +534,11 @@
+ 			<integer>0</integer>
+ 			<key>defaultConfigurationName</key>
+ 			<string>Debug</string>
++			<key>isa</key>
++			<string>XCConfigurationList</string>
+ 		</dict>
+ 		<key>00000000000000000000002A</key>
+ 		<dict>
+-			<key>isa</key>
+-			<string>PBXNativeTarget</string>
+ 			<key>buildConfigurationList</key>
+ 			<string>000000000000000000000029</string>
+ 			<key>buildPhases</key>
+@@ -567,6 +551,8 @@
+ 			<array/>
+ 			<key>dependencies</key>
+ 			<array/>
++			<key>isa</key>
++			<string>PBXNativeTarget</string>
+ 			<key>name</key>
+ 			<string>LocalNutrition</string>
+ 			<key>packageProductDependencies</key>
+@@ -585,8 +571,6 @@
+ 		</dict>
+ 		<key>00000000000000000000002B</key>
+ 		<dict>
+-			<key>isa</key>
+-			<string>PBXProject</string>
+ 			<key>attributes</key>
+ 			<dict>
+ 				<key>LastUpgradeCheck</key>
+@@ -598,7 +582,7 @@
+ 						<key>CreatedOnToolsVersion</key>
+ 						<string>26.6</string>
+ 						<key>DevelopmentTeam</key>
+-						<string>2LQRHTXUPJ</string>
++						<string></string>
+ 						<key>ProvisioningStyle</key>
+ 						<string>Automatic</string>
+ 					</dict>
+@@ -612,6 +596,8 @@
+ 			<string>ja</string>
+ 			<key>hasScannedForEncodings</key>
+ 			<integer>0</integer>
++			<key>isa</key>
++			<string>PBXProject</string>
+ 			<key>knownRegions</key>
+ 			<array>
+ 				<string>ja</string>
+@@ -637,6 +623,24 @@
+ 				<string>00000000000000000000002A</string>
+ 			</array>
+ 		</dict>
++		<key>0000000000000000000000A1</key>
++		<dict>
++			<key>isa</key>
++			<string>PBXFileReference</string>
++			<key>lastKnownFileType</key>
++			<string>sourcecode.swift</string>
++			<key>path</key>
++			<string>Localization.swift</string>
++			<key>sourceTree</key>
++			<string>&lt;group&gt;</string>
++		</dict>
++		<key>0000000000000000000000A2</key>
++		<dict>
++			<key>fileRef</key>
++			<string>0000000000000000000000A1</string>
++			<key>isa</key>
++			<string>PBXBuildFile</string>
++		</dict>
+ 	</dict>
+ 	<key>rootObject</key>
+ 	<string>00000000000000000000002B</string>
+diff --git a/LocalNutrition/ContentView.swift b/LocalNutrition/ContentView.swift
+index b57c076..5b6539d 100644
+--- a/LocalNutrition/ContentView.swift
++++ b/LocalNutrition/ContentView.swift
+@@ -8,27 +8,34 @@ struct ContentView: View {
+     @StateObject private var model = MealViewModel()
+     @State private var photo: PhotosPickerItem?
+     @State private var batchPhotos: [PhotosPickerItem] = []
+-    @State private var showFiles = false
+-    @State private var showBatchFiles = false
+-    @State private var showBatchFolder = false
+-    @State private var showModelFiles = false
++    // One file importer for all four purposes: SwiftUI presents only one of several
++    // .fileImporter modifiers attached to the same view, so the others silently did nothing.
++    private enum ImportTarget { case image, batchFiles, batchFolder, modelFolder }
++    @State private var importTarget: ImportTarget = .image
++    @State private var showImporter = false
+     @State private var showHistory = false
+     @State private var showFoodSearch = false
+     @State private var showCamera = false
+     @State private var search = ""
+     @State private var exportURL: URL?
+     @State private var researchExportURL: URL?
++    // In-app language switch (see Localization.swift). Reading it in `body` re-renders the screen when it changes.
++    @AppStorage(AppLanguage.storageKey) private var uiLanguage = ""
+     @Environment(\.horizontalSizeClass) private var sizeClass
+     private let green = Color(red: 0.12, green: 0.38, blue: 0.30)
+ 
++    private var isJapaneseUI: Bool {
++        uiLanguage == "ja" || (uiLanguage != "en" && AppLanguage.deviceIsJapanese)
++    }
++
+     var body: some View {
+         NavigationStack {
+             ScrollView {
+                 VStack(alignment: .leading, spacing: 24) {
+                     HStack(alignment: .top) {
+                         VStack(alignment: .leading, spacing: 8) {
+-                            Text("食事を撮って、栄養を知る。").font(sizeClass == .compact ? .title.bold() : .largeTitle.bold())
+-                            Text("写真の解析も、食事の記録も、この端末の中で。")
++                            Text(L("食事を撮って、栄養を知る。")).font(sizeClass == .compact ? .title.bold() : .largeTitle.bold())
++                            Text(L("写真の解析も、食事の記録も、この端末の中で。"))
+                                 .foregroundStyle(.secondary)
+                         }
+                         Spacer()
+@@ -46,14 +53,25 @@ struct ContentView: View {
+                       }
+                     }
+                     batchPanel
+-                    DisclosureGroup("食品成分表から計算する") { calculator.padding(.top, 12) }
+-                    Text("写真からの値は概算です。食材の重量や油・調味料は写真だけでは確定できません。")
++                    DisclosureGroup(L("食品成分表から計算する")) { calculator.padding(.top, 12) }
++                    Text(L("写真からの値は概算です。食材の重量や油・調味料は写真だけでは確定できません。"))
+                         .font(.footnote).foregroundStyle(.secondary)
+                 }.padding(sizeClass == .compact ? 16 : 28).frame(maxWidth: 1150)
+             }
+             .frame(maxWidth: .infinity).background(Color(uiColor: .systemGroupedBackground))
+             .navigationTitle("Local Nutrition").navigationBarTitleDisplayMode(.inline)
+-            .toolbar { Button { showHistory = true } label: { Label("記録", systemImage: "clock") } }
++            // Dates and numbers follow the language chosen with the switch.
++            .environment(\.locale, Locale(identifier: isJapaneseUI ? "ja_JP" : "en_US"))
++            .toolbar {
++                ToolbarItemGroup(placement: .topBarTrailing) {
++                    Button {
++                        uiLanguage = isJapaneseUI ? "en" : "ja"
++                    } label: {
++                        Text(verbatim: isJapaneseUI ? "English" : "日本語")
++                    }
++                    Button { showHistory = true } label: { Label(L("記録"), systemImage: "clock") }
++                }
++            }
+             .sheet(isPresented: $showHistory) { history }
+             .sheet(isPresented: $showFoodSearch) { foodPicker }
+             .fullScreenCover(isPresented: $showCamera) {
+@@ -61,24 +79,10 @@ struct ContentView: View {
+                              onError: { model.error = $0; showCamera = false })
+                     .ignoresSafeArea()
+             }
+-            .fileImporter(isPresented: $showFiles, allowedContentTypes: [.image]) { result in
+-                do {
+-                    let url = try result.get(); let allowed = url.startAccessingSecurityScopedResource()
+-                    defer { if allowed { url.stopAccessingSecurityScopedResource() } }
+-                    model.selectImage(data: try Data(contentsOf: url), name: url.lastPathComponent)
+-                } catch { model.error = error.localizedDescription }
+-            }
+-            .fileImporter(isPresented: $showBatchFiles, allowedContentTypes: [.image], allowsMultipleSelection: true) { result in
+-                do { model.analyzeBatchFiles(try result.get()) }
+-                catch { model.error = error.localizedDescription }
+-            }
+-            .fileImporter(isPresented: $showBatchFolder, allowedContentTypes: [.folder]) { result in
+-                do { model.analyzeFolder(try result.get()) }
+-                catch { model.error = error.localizedDescription }
+-            }
+-            .fileImporter(isPresented: $showModelFiles, allowedContentTypes: [.folder]) { result in
+-                do { model.installModel(from: try result.get(), as: model.selectedVariant) }
+-                catch { model.error = error.localizedDescription }
++            .fileImporter(isPresented: $showImporter,
++                          allowedContentTypes: (importTarget == .image || importTarget == .batchFiles) ? [.image] : [.folder],
++                          allowsMultipleSelection: importTarget == .batchFiles) { result in
++                handleImport(result)
+             }
+             .onChange(of: photo) { _, value in
+                 Task {
+@@ -93,15 +97,15 @@ struct ContentView: View {
+                 model.analyzeBatchPhotos(items)
+                 batchPhotos = []
+             }
+-            .alert("確認", isPresented: Binding(get: { model.error != nil }, set: { if !$0 { model.error = nil } })) {
+-                Button("閉じる", role: .cancel) { model.error = nil }
+-            } message: { Text(model.error ?? "") }
++            .alert(L("確認"), isPresented: Binding(get: { model.error != nil }, set: { if !$0 { model.error = nil } })) {
++                Button(L("閉じる"), role: .cancel) { model.error = nil }
++            } message: { Text(L(model.error ?? "")) }
+         }.tint(green)
+     }
+ 
+     private var imagePanel: some View {
+         VStack(alignment: .leading, spacing: 16) {
+-            Text("1  食事の写真").font(.title3.bold())
++            Text(L("1  食事の写真")).font(.title3.bold())
+             ZStack {
+                 RoundedRectangle(cornerRadius: 20).fill(green.opacity(0.06))
+                 if let image = model.image {
+@@ -109,13 +113,13 @@ struct ContentView: View {
+                 } else {
+                     VStack(spacing: 12) {
+                         Image(systemName: "fork.knife.circle").font(.system(size: 64)).foregroundStyle(green)
+-                        Text("食事全体が写るように撮影してください").foregroundStyle(.secondary)
++                        Text(L("食事全体が写るように撮影してください")).foregroundStyle(.secondary)
+                     }
+                 }
+             }.frame(height: 290).clipShape(RoundedRectangle(cornerRadius: 20))
+-            if !model.imageName.isEmpty { Text(model.imageName).font(.caption).foregroundStyle(.secondary).lineLimit(1) }
++            if !model.imageName.isEmpty { Text(L(model.imageName)).font(.caption).foregroundStyle(.secondary).lineLimit(1) }
+             if let number = model.records.first(where: { $0.date == model.capturedAt })?.sequenceNumber {
+-                Text("写真番号 #\(String(format: "%06d", number))").font(.subheadline.monospacedDigit()).foregroundStyle(green)
++                Text(LF("写真番号 #%@", String(format: "%06d", number))).font(.subheadline.monospacedDigit()).foregroundStyle(green)
+             }
+             Button {
+                 Task {
+@@ -127,98 +131,111 @@ struct ContentView: View {
+                     else { model.error = "設定アプリでLocal Nutritionのカメラへのアクセスを許可してください。" }
+                 }
+             } label: {
+-                Label(model.image == nil ? "食事を撮影して記録" : "次の食事を撮影", systemImage: "camera.fill")
++                Label(L(model.image == nil ? "食事を撮影して記録" : "次の食事を撮影"), systemImage: "camera.fill")
+                     .frame(maxWidth: .infinity).padding(.vertical, 12)
+             }.buttonStyle(.borderedProminent).disabled(model.isBusy)
+-            Text("撮影した写真と日時は自動保存され、栄養を解析します。")
++            Text(L("撮影した写真と日時は自動保存され、栄養を解析します。"))
+                 .font(.caption).foregroundStyle(.secondary)
+-            DisclosureGroup("保存済みの写真を使う") {
++            DisclosureGroup(L("保存済みの写真を使う")) {
+                 HStack {
+-                    PhotosPicker(selection: $photo, matching: .images) { Label("写真", systemImage: "photo") }
+-                    Button { showFiles = true } label: { Label("ファイル", systemImage: "folder") }
++                    PhotosPicker(selection: $photo, matching: .images) { Label(L("写真"), systemImage: "photo") }
++                    Button { presentImporter(.image) } label: { Label(L("ファイル"), systemImage: "folder") }
+                 }.buttonStyle(.bordered).disabled(model.isBusy).padding(.top, 8)
+             }
+             if let capturedAt = model.capturedAt {
+                 Divider()
+-                Label("写真を保存済み", systemImage: "checkmark.circle.fill").foregroundStyle(green)
++                Label(L("写真を保存済み"), systemImage: "checkmark.circle.fill").foregroundStyle(green)
+                 Text(capturedAt, format: .dateTime.year().month().day().hour().minute()).font(.subheadline)
+-                Picker("食事", selection: $model.mealType) {
+-                    ForEach(["朝食", "昼食", "夕食", "間食"], id: \.self) { Text($0).tag($0) }
++                Picker(L("食事"), selection: $model.mealType) {
++                    ForEach(["朝食", "昼食", "夕食", "間食"], id: \.self) { Text(L($0)).tag($0) }
+                 }.pickerStyle(.segmented).disabled(model.isBusy)
+-                TextField("料理名やメモ", text: $model.note, axis: .vertical)
++                TextField(L("料理名やメモ"), text: $model.note, axis: .vertical)
+                     .textFieldStyle(.roundedBorder).disabled(model.isBusy)
+-                Button("食事区分・メモ・分量の変更を保存") { model.save() }
++                Button(L("食事区分・メモ・分量の変更を保存")) { model.save() }
+                     .buttonStyle(.bordered).disabled(model.isBusy)
+-                Text("解析に失敗しても写真は記録に残ります。") .font(.caption).foregroundStyle(.secondary)
++                Text(L("解析に失敗しても写真は記録に残ります。")) .font(.caption).foregroundStyle(.secondary)
+             }
+         }.card(compact: sizeClass == .compact)
+     }
+ 
+     private var analysisPanel: some View {
+         VStack(alignment: .leading, spacing: 18) {
+-            Text("2  端末内で栄養を推定").font(.title3.bold())
+-            Picker("解析モデル", selection: $model.selectedVariant) {
++            Text(L("2  端末内で栄養を推定")).font(.title3.bold())
++            Picker(L("解析モデル"), selection: $model.selectedVariant) {
+                 ForEach(VLMVariant.allCases) { variant in
+                     Text(variant.rawValue).tag(variant)
+                 }
+             }.pickerStyle(.segmented).disabled(model.isBusy || model.isInstallingModel)
+             if model.installedModels.contains(model.selectedVariant) {
+-                Label("Qwen3-VL \(model.selectedVariant.rawValue) · 端末内で利用可能", systemImage: "checkmark.circle.fill")
++                Label(LF("Qwen3-VL %@ · 端末内で利用可能", model.selectedVariant.rawValue), systemImage: "checkmark.circle.fill")
+                     .font(.caption).foregroundStyle(green)
+             }
+             if !model.installedModels.contains(model.selectedVariant) {
+-                Button { showModelFiles = true } label: { Label("\(model.selectedVariant.rawValue)モデルのフォルダを追加", systemImage: "folder.badge.plus") }
++                Button { presentImporter(.modelFolder) } label: { Label(LF("%@モデルのフォルダを追加", model.selectedVariant.rawValue), systemImage: "folder.badge.plus") }
+                     .buttonStyle(.bordered).disabled(model.isInstallingModel)
+-                Text("端末の「ファイル」でQwen3-VL-\(model.selectedVariant.rawValue)-Instruct-4bitフォルダを選択してください。")
++                Text(LF("端末の「ファイル」でQwen3-VL-%@-Instruct-4bitフォルダを選択してください。", model.selectedVariant.rawValue))
+                     .font(.caption).foregroundStyle(.secondary)
+             }
+-            Button("追加済みモデルを再確認") { model.refreshInstalledModels() }
++            Button(L("追加済みモデルを再確認")) { model.refreshInstalledModels() }
+                 .font(.caption).disabled(model.isBusy || model.isInstallingModel)
+-            if model.isInstallingModel { ProgressView(model.modelInstallStatus) }
+-            else if !model.modelInstallStatus.isEmpty { Text(model.modelInstallStatus).font(.caption).foregroundStyle(green) }
++            if model.isInstallingModel { ProgressView(L(model.modelInstallStatus)) }
++            else if !model.modelInstallStatus.isEmpty { Text(L(model.modelInstallStatus)).font(.caption).foregroundStyle(green) }
+             if model.selectedVariant == .eightB {
+-                Text("8Bは約5.4GBのモデルです。端末の空き容量とメモリにより解析できない場合があります。")
++                Text(L("8Bは約5.4GBのモデルです。端末の空き容量とメモリにより解析できない場合があります。"))
+                     .font(.caption).foregroundStyle(.secondary)
+             }
+-            Picker("解析モード", selection: $model.analysisMode) {
++            Picker(L("解析モード"), selection: $model.analysisMode) {
+                 ForEach(AnalysisMode.allCases) { mode in Text(mode.title).tag(mode) }
+             }.pickerStyle(.segmented).disabled(model.isBusy)
+             if model.analysisMode == .research {
+-                Text("論文のL0・none条件で解析します。通常モードと同じ入力JPEGを使い、結果と解析モードを記録します。")
++                Text(L("論文の研究プロトコル（L0）で解析します。重さが空欄なら none 条件、入力すると W 条件（重量の一文を付加）です。"))
++                    .font(.caption).foregroundStyle(.secondary)
++                HStack {
++                    Text(L("料理だけの重さ"))
++                    TextField(L("任意"), text: $model.declaredWeightText)
++                        .keyboardType(.decimalPad)
++                        .textFieldStyle(.roundedBorder)
++                        .frame(maxWidth: 120)
++                    Text("g")
++                }.disabled(model.isBusy)
++                Text(L("器や容器の重さは含めないでください。器ごと量る場合は、先に器だけを量って差し引きます。一括解析では重さは使いません。"))
+                     .font(.caption).foregroundStyle(.secondary)
++                if model.declaredWeightIsInvalid {
++                    Text(L("重さは 1〜5000 g の数値で入力してください。")).font(.caption).foregroundStyle(.red)
++                }
+             }
+-            DisclosureGroup("推定の条件") {
++            DisclosureGroup(L("推定の条件")) {
+                 VStack(alignment: .leading) {
+-                    Toggle("写真を1人分とみなす", isOn: $model.singleServing).disabled(model.analysisMode == .research)
+-                    Toggle("日本の標準的な食事を想定", isOn: $model.japanesePersona).disabled(model.analysisMode == .research)
+-                    Text("条件を変えた場合は再解析してください。分量は結果の倍率で調整できます。")
++                    Toggle(L("写真を1人分とみなす"), isOn: $model.singleServing).disabled(model.analysisMode == .research)
++                    Toggle(L("日本の標準的な食事を想定"), isOn: $model.japanesePersona).disabled(model.analysisMode == .research)
++                    Text(L("条件を変えた場合は再解析してください。分量は結果の倍率で調整できます。"))
+                         .font(.caption).foregroundStyle(.secondary)
+                 }.padding(.top, 8).disabled(model.isBusy)
+             }
+             HStack {
+-                Button { model.analyze() } label: { Label("栄養を再解析", systemImage: "sparkles").frame(maxWidth: .infinity).padding(.vertical, 7) }
++                Button { model.analyze() } label: { Label(L("栄養を再解析"), systemImage: "sparkles").frame(maxWidth: .infinity).padding(.vertical, 7) }
+                     .buttonStyle(.borderedProminent).disabled(model.image == nil || model.isBusy || model.isInstallingModel || !model.installedModels.contains(model.selectedVariant))
+-                if model.isBusy { Button("中止") { model.cancel() }.buttonStyle(.bordered) }
++                if model.isBusy { Button(L("中止")) { model.cancel() }.buttonStyle(.bordered) }
+             }
+             HStack {
+                 if model.isBusy { ProgressView() }
+-                Text(model.status).font(.subheadline).foregroundStyle(.secondary)
++                Text(L(model.status)).font(.subheadline).foregroundStyle(.secondary)
+             }
+             if let result = model.displayedResult {
+                 Divider()
+-                Text("AI推定値").font(.headline)
++                Text(L("AI推定値")).font(.headline)
+                 nutrientGrid(result)
+                 if !result.basis.isEmpty { Text(result.basis).font(.subheadline).foregroundStyle(.secondary) }
+                 if sizeClass == .compact {
+-                    VStack(alignment: .leading, spacing: 8) { Text("食べる分量"); portionPicker }
++                    VStack(alignment: .leading, spacing: 8) { Text(L("食べる分量")); portionPicker }
+                 } else {
+-                    HStack { Text("食べる分量"); portionPicker }
++                    HStack { Text(L("食べる分量")); portionPicker }
+                 }
+-                Button(model.saved ? "栄養値を保存済み" : "分量の変更を保存") { model.save() }
++                Button(L(model.saved ? "栄養値を保存済み" : "分量の変更を保存")) { model.save() }
+                     .buttonStyle(.bordered).disabled(model.saved || model.isBusy)
+             }
+             if !model.rawResponse.isEmpty {
+-                DisclosureGroup("AIの応答を確認") {
++                DisclosureGroup(L("AIの応答を確認")) {
+                     Text(model.rawResponse).font(.system(.caption, design: .monospaced)).textSelection(.enabled)
+                         .frame(maxWidth: .infinity, alignment: .leading).padding(.top, 8)
+                 }
+@@ -226,43 +243,91 @@ struct ContentView: View {
+         }.card(compact: sizeClass == .compact)
+     }
+ 
++    private func presentImporter(_ target: ImportTarget) {
++        importTarget = target
++        showImporter = true
++    }
++
++    private func handleImport(_ result: Result<[URL], Error>) {
++        do {
++            let urls = try result.get()
++            guard let first = urls.first else { return }
++            switch importTarget {
++            case .image:
++                let allowed = first.startAccessingSecurityScopedResource()
++                defer { if allowed { first.stopAccessingSecurityScopedResource() } }
++                model.selectImage(data: try Data(contentsOf: first), name: first.lastPathComponent)
++            case .batchFiles:
++                model.analyzeBatchFiles(urls)
++            case .batchFolder:
++                model.analyzeFolder(first)
++            case .modelFolder:
++                model.installModel(from: first, as: model.selectedVariant)
++            }
++        } catch {
++            model.error = error.localizedDescription
++        }
++    }
++
+     private var batchPanel: some View {
+         VStack(alignment: .leading, spacing: 14) {
+-            Text("3  フォルダの画像を一括解析").font(.title3.bold())
+-            Text("iCloud Driveなどのフォルダ内の画像を、選択中の\(model.selectedVariant.rawValue)モデルで順番に解析します。サブフォルダ内も対象です。")
++            Text(L("3  フォルダの画像を一括解析")).font(.title3.bold())
++            VStack(alignment: .leading, spacing: 10) {
++                Text(L("端末内の画像セット")).font(.headline)
++                Text(L("ファイルアプリの「このiPad内（iPhoneでは「このiPhone内」）› Local Nutrition › images」に置いたフォルダが一覧に出ます。数枚だけ試すときは、画像をコピーした新しいフォルダを images の中に作ってください。"))
++                    .font(.caption).foregroundStyle(.secondary)
++                if model.imageSets.isEmpty {
++                    Text(L("images フォルダに画像セット（サブフォルダ）がありません。")).font(.subheadline).foregroundStyle(.secondary)
++                } else {
++                    Picker(L("画像セット"), selection: $model.selectedImageSet) {
++                        ForEach(model.imageSets, id: \.self) { Text($0).tag($0) }
++                    }
++                    Stepper(model.imageSetLimit == 0 ? L("枚数: 全部") : LF("枚数: 先頭 %ld 枚", model.imageSetLimit),
++                            value: $model.imageSetLimit, in: 0...5000, step: 5)
++                    Button { model.analyzeImageSet() } label: {
++                        Label(L("このセットを一括解析"), systemImage: "play.circle")
++                            .frame(maxWidth: .infinity).padding(.vertical, 8)
++                    }.buttonStyle(.borderedProminent)
++                        .disabled(model.isBusy || model.isInstallingModel || !model.installedModels.contains(model.selectedVariant))
++                }
++                Button(L("セット一覧を更新")) { model.refreshImageSets() }.font(.caption).disabled(model.isBusy)
++            }
++            Divider()
++            Text(L("ほかの場所（iCloud Drive など）から選ぶ")).font(.headline)
++            Text(LF("iCloud Driveなどのフォルダ内の画像を、選択中の%@モデルで順番に解析します。サブフォルダ内も対象です。", model.selectedVariant.rawValue))
+                 .font(.subheadline).foregroundStyle(.secondary)
+-            Button { showBatchFolder = true } label: {
+-                Label("画像フォルダを選ぶ", systemImage: "folder")
++            Button { presentImporter(.batchFolder) } label: {
++                Label(L("画像フォルダを選ぶ"), systemImage: "folder")
+                     .frame(maxWidth: .infinity).padding(.vertical, 8)
+             }.buttonStyle(.borderedProminent)
+                 .disabled(model.isBusy || model.isInstallingModel || !model.installedModels.contains(model.selectedVariant))
+             VStack(alignment: .leading, spacing: 12) {
+                 PhotosPicker(selection: $batchPhotos, matching: .images) {
+-                    Label("写真を複数選ぶ", systemImage: "photo.on.rectangle")
++                    Label(L("写真を複数選ぶ"), systemImage: "photo.on.rectangle")
+                 }
+-                Button { showBatchFiles = true } label: { Label("画像ファイルを複数選ぶ", systemImage: "doc.on.doc") }
++                Button { presentImporter(.batchFiles) } label: { Label(L("画像ファイルを複数選ぶ"), systemImage: "doc.on.doc") }
+             }.buttonStyle(.bordered)
+                 .disabled(model.isBusy || model.isInstallingModel || !model.installedModels.contains(model.selectedVariant))
+             if model.batchIsRunning {
+-                ProgressView(model.batchProgress)
+-                Button("一括解析を中止") { model.cancel() }.buttonStyle(.bordered)
++                ProgressView(L(model.batchProgress))
++                Button(L("一括解析を中止")) { model.cancel() }.buttonStyle(.bordered)
+             } else if !model.batchProgress.isEmpty {
+-                Text(model.batchProgress).font(.subheadline).foregroundStyle(.secondary)
++                Text(L(model.batchProgress)).font(.subheadline).foregroundStyle(.secondary)
+             }
+             if let url = model.batchExportURL {
+-                Text("結果: \(url.lastPathComponent)").font(.caption.monospaced()).textSelection(.enabled)
++                Text(LF("結果: %@", url.lastPathComponent)).font(.caption.monospaced()).textSelection(.enabled)
+                 if !model.batchIsRunning {
+-                    ShareLink(item: url) { Label("結果JSONを共有・iCloud Driveに保存", systemImage: "square.and.arrow.up") }
++                    ShareLink(item: url) { Label(L("結果JSONを共有・iCloud Driveに保存"), systemImage: "square.and.arrow.up") }
+                 }
+             }
+-            Text("JSONは1枚ごとに更新されます。同じフォルダを選び直すと未完了分から再開できます。長時間の解析中はアプリを開いたままにしてください。")
++            Text(L("JSONは1枚ごとに更新されます。同じフォルダを選び直すと未完了分から再開できます。長時間の解析中はアプリを開いたままにしてください。"))
+                 .font(.caption).foregroundStyle(.secondary)
+         }.card(compact: sizeClass == .compact)
+     }
+ 
+     private var portionPicker: some View {
+-        Picker("食べる分量", selection: $model.portionMultiplier) {
+-            Text("半分").tag(0.5); Text("全部").tag(1.0); Text("1.5倍").tag(1.5); Text("2倍").tag(2.0)
++        Picker(L("食べる分量"), selection: $model.portionMultiplier) {
++            Text(L("半分")).tag(0.5); Text(L("全部")).tag(1.0); Text(L("1.5倍")).tag(1.5); Text(L("2倍")).tag(2.0)
+         }.pickerStyle(.segmented)
+             .onChange(of: model.portionMultiplier) { _, _ in model.saved = false }
+     }
+@@ -274,11 +339,11 @@ struct ContentView: View {
+                 Text("kcal").foregroundStyle(.secondary)
+             }
+             LazyVGrid(columns: [GridItem(.adaptive(minimum: 115), alignment: .leading)], alignment: .leading, spacing: 14) {
+-                metric("たんぱく質", result.protein_g, .orange)
+-                metric("脂質", result.fat_g, .pink)
+-                metric("炭水化物", result.carb_g, .blue)
+-                if saltKnown { metric("食塩相当量", result.salt_g, .purple) }
+-                else { VStack(alignment: .leading) { Text("食塩相当量").font(.caption); Text("データ不足").font(.headline) } }
++                metric(L("たんぱく質"), result.protein_g, .orange)
++                metric(L("脂質"), result.fat_g, .pink)
++                metric(L("炭水化物"), result.carb_g, .blue)
++                if saltKnown { metric(L("食塩相当量"), result.salt_g, .purple) }
++                else { VStack(alignment: .leading) { Text(L("食塩相当量")).font(.caption); Text(L("データ不足")).font(.headline) } }
+             }
+         }
+     }
+@@ -293,16 +358,16 @@ struct ContentView: View {
+         VStack(alignment: .leading, spacing: 16) {
+             VStack(alignment: .leading, spacing: 12) {
+                 VStack(alignment: .leading, spacing: 5) {
+-                    Text("食品成分表で計算").font(.title3.bold())
+-                    Text("食品と可食部の重さを入力して、AI推定値と比べられます。")
++                    Text(L("食品成分表で計算")).font(.title3.bold())
++                    Text(L("食品と可食部の重さを入力して、AI推定値と比べられます。"))
+                         .font(.subheadline).foregroundStyle(.secondary)
+                 }
+-                Button { showFoodSearch = true } label: { Label("食品を追加", systemImage: "plus") }
++                Button { showFoodSearch = true } label: { Label(L("食品を追加"), systemImage: "plus") }
+             }
+             ForEach($model.portions) { $portion in
+                 HStack {
+                     Text(portion.food.name).frame(maxWidth: .infinity, alignment: .leading)
+-                    TextField("重さ", value: $portion.grams, format: .number)
++                    TextField(L("重さ"), value: $portion.grams, format: .number)
+                         .keyboardType(.decimalPad).textFieldStyle(.roundedBorder).frame(width: 85)
+                     Text("g")
+                     Button(role: .destructive) { model.portions.removeAll { $0.id == portion.id } } label: { Image(systemName: "minus.circle") }
+@@ -316,12 +381,12 @@ struct ContentView: View {
+                                          fat_g: a.fat_g + n.fat_g, carb_g: a.carb_g + n.carb_g, salt_g: a.salt_g + n.salt_g, basis: "")
+                     }
+                     Divider(); nutrientGrid(total, saltKnown: model.portions.allSatisfy { $0.food.salt != nil })
+-                } else { Text("重さを0より大きい10,000g以下の数値で入力してください。") .foregroundStyle(.red) }
++                } else { Text(L("重さを0より大きい10,000g以下の数値で入力してください。")) .foregroundStyle(.red) }
+             }
+-            Link("出典：日本食品標準成分表（八訂）増補2023年（2026年3月訂正反映）",
++            Link(L("出典：日本食品標準成分表（八訂）増補2023年（2026年3月訂正反映）"),
+                  destination: URL(string: "https://www.mext.go.jp/a_menu/syokuhinseibun/mext_00001.html")!)
+                 .font(.caption)
+-            Text("成分値は可食部100g当たり。Tr（微量）は計算上0、括弧付きの推定値は数値として使用しています。")
++            Text(L("成分値は可食部100g当たり。Tr（微量）は計算上0、括弧付きの推定値は数値として使用しています。"))
+                 .font(.caption).foregroundStyle(.secondary)
+         }.card(compact: sizeClass == .compact)
+     }
+@@ -334,12 +399,12 @@ struct ContentView: View {
+                 } label: {
+                     VStack(alignment: .leading, spacing: 5) {
+                         Text(food.name)
+-                        Text("\(food.energy, specifier: "%.0f") kcal / 100g · 食品番号 \(food.id)").font(.caption).foregroundStyle(.secondary)
++                        Text(LF("%@ kcal / 100g · 食品番号 %@", String(format: "%.0f", food.energy), "\(food.id)")).font(.caption).foregroundStyle(.secondary)
+                     }
+                 }
+-            }.searchable(text: $search, prompt: "ご飯、鶏、豆腐など")
+-                .navigationTitle("食品を検索（\(model.foods.count)件）")
+-                .toolbar { Button("閉じる") { showFoodSearch = false } }
++            }.searchable(text: $search, prompt: L("ご飯、鶏、豆腐など"))
++                .navigationTitle(LF("食品を検索（%ld件）", model.foods.count))
++                .toolbar { Button(L("閉じる")) { showFoodSearch = false } }
+         }
+     }
+     private var history: some View {
+@@ -347,58 +412,58 @@ struct ContentView: View {
+             List {
+                 Section {
+                     Button { do { researchExportURL = try model.exportResearch() } catch { model.error = error.localizedDescription } } label: {
+-                        Label("解析用データを書き出す", systemImage: "square.and.arrow.up.on.square")
++                        Label(L("解析用データを書き出す"), systemImage: "square.and.arrow.up.on.square")
+                     }
+                     if let folder = researchExportURL {
+-                        Text("「ファイル」アプリ → このiPhone / iPad内 → Local Nutrition → ResearchExport に、番号付き写真、results.csv、records.jsonを保存しました。")
++                        Text(L("「ファイル」アプリ → このiPhone / iPad内 → Local Nutrition → ResearchExport に、番号付き写真、results.csv、records.jsonを保存しました。"))
+                             .font(.caption).foregroundStyle(.secondary)
+-                        ShareLink(item: folder.appendingPathComponent("results.csv")) { Label("結果CSVを共有", systemImage: "tablecells") }
+-                        ShareLink(item: folder.appendingPathComponent("records.json")) { Label("詳細JSONを共有", systemImage: "curlybraces") }
++                        ShareLink(item: folder.appendingPathComponent("results.csv")) { Label(L("結果CSVを共有"), systemImage: "tablecells") }
++                        ShareLink(item: folder.appendingPathComponent("records.json")) { Label(L("詳細JSONを共有"), systemImage: "curlybraces") }
+                     }
+                     if let logURL = try? AnalysisLog.url(), FileManager.default.fileExists(atPath: logURL.path) {
+-                        ShareLink(item: logURL) { Label("解析ログJSONLを共有", systemImage: "doc.text") }
++                        ShareLink(item: logURL) { Label(L("解析ログJSONLを共有"), systemImage: "doc.text") }
+                     }
+                 }
+-                if model.records.isEmpty { Text("保存した食事がここに表示されます。") }
++                if model.records.isEmpty { Text(L("保存した食事がここに表示されます。")) }
+                 ForEach(model.records) { record in
+                     NavigationLink {
+                         ScrollView {
+                             VStack(alignment: .leading, spacing: 20) {
+                                 if let image = storedImage(record) { Image(uiImage: image).resizable().scaledToFit().frame(maxHeight: 350) }
+                                 Text(record.date, format: .dateTime.year().month().day().hour().minute())
+-                                if let number = record.sequenceNumber { Text("写真番号 #\(String(format: "%06d", number))").font(.headline.monospacedDigit()) }
+-                                Text(record.mealType ?? "食事").font(.title3.bold())
++                                if let number = record.sequenceNumber { Text(LF("写真番号 #%@", String(format: "%06d", number))).font(.headline.monospacedDigit()) }
++                                Text(L(record.mealType ?? "食事")).font(.title3.bold())
+                                 if let note = record.note, !note.isEmpty { Text(note) }
+-                                Label(record.analysisStatus ?? "解析済み", systemImage: record.nutrition == nil ? "photo" : "checkmark.circle")
++                                Label(L(record.analysisStatus ?? "解析済み"), systemImage: record.nutrition == nil ? "photo" : "checkmark.circle")
+                                 if let nutrition = record.nutrition {
+                                     nutrientGrid(nutrition)
+                                     if !nutrition.basis.isEmpty { Text(nutrition.basis) }
+-                                } else { Text("写真は保存されています。栄養値はまだありません。") .foregroundStyle(.secondary) }
++                                } else { Text(L("写真は保存されています。栄養値はまだありません。")) .foregroundStyle(.secondary) }
+                                 if let error = record.analysisError { Text(error).font(.subheadline).foregroundStyle(.secondary) }
+-                                Button("この記録を開いて編集・再解析") { model.reopen(record); showHistory = false }
++                                Button(L("この記録を開いて編集・再解析")) { model.reopen(record); showHistory = false }
+                                     .buttonStyle(.borderedProminent).disabled(model.isBusy)
+                                 if let url = try? RecordStorage.photoURL(for: record) {
+-                                    ShareLink(item: url) { Label("元の写真を書き出す", systemImage: "square.and.arrow.up") }
++                                    ShareLink(item: url) { Label(L("元の写真を書き出す"), systemImage: "square.and.arrow.up") }
+                                 }
+                                 Text(record.modelID).font(.caption).foregroundStyle(.secondary)
+                                 if let input = record.modelInputFilename {
+-                                    Text("モデル入力: model_inputs/\(input)").font(.caption.monospaced()).textSelection(.enabled)
++                                    Text(LF("モデル入力: model_inputs/%@", input)).font(.caption.monospaced()).textSelection(.enabled)
+                                     if let folder = try? RecordStorage.modelInputDirectory() {
+                                         let inputURL = folder.appendingPathComponent(input)
+                                         if FileManager.default.fileExists(atPath: inputURL.path) {
+-                                            ShareLink(item: inputURL) { Label("モデル入力JPEGを書き出す", systemImage: "square.and.arrow.up") }
++                                            ShareLink(item: inputURL) { Label(L("モデル入力JPEGを書き出す"), systemImage: "square.and.arrow.up") }
+                                         }
+                                     }
+                                 }
+-                                Text("解析時間：\(record.seconds, specifier: "%.1f")秒、分量倍率：\(record.portionMultiplier, specifier: "%.1f")")
+-                                DisclosureGroup("プロンプトと生の応答") { Text(record.prompt + "\n\n" + record.rawResponse).font(.caption).textSelection(.enabled) }
++                                Text(LF("解析時間：%@秒、分量倍率：%@", String(format: "%.1f", record.seconds), String(format: "%.1f", record.portionMultiplier)))
++                                DisclosureGroup(L("プロンプトと生の応答")) { Text(record.prompt + "\n\n" + record.rawResponse).font(.caption).textSelection(.enabled) }
+                                 if let settings = record.generationSettings { Text(settings).font(.caption).foregroundStyle(.secondary).textSelection(.enabled) }
+                                 if let runs = record.analyses, !runs.isEmpty {
+                                     Divider()
+-                                    Text("モデル別の解析履歴").font(.headline)
++                                    Text(L("モデル別の解析履歴")).font(.headline)
+                                     ForEach(runs) { run in
+                                         VStack(alignment: .leading, spacing: 5) {
+-                                            Text("\(VLMVariant.allCases.first(where: { run.modelID.contains("-\($0.rawValue)-") })?.rawValue ?? run.modelID) · \(run.status)").font(.subheadline.bold())
++                                            Text("\(VLMVariant.allCases.first(where: { run.modelID.contains("-\($0.rawValue)-") })?.rawValue ?? run.modelID) · \(L(run.status))").font(.subheadline.bold())
+                                             Text(run.date, format: .dateTime.year().month().day().hour().minute()).font(.caption).foregroundStyle(.secondary)
+                                             if let value = run.nutrition { Text("\(value.energy_kcal, specifier: "%.0f") kcal · P \(value.protein_g, specifier: "%.1f") g · F \(value.fat_g, specifier: "%.1f") g · C \(value.carb_g, specifier: "%.1f") g") }
+                                             if let input = run.modelInputFilename { Text("model_inputs/\(input)").font(.caption.monospaced()).textSelection(.enabled) }
+@@ -408,27 +473,27 @@ struct ContentView: View {
+                                     }
+                                 }
+                             }.padding()
+-                        }.navigationTitle("食事の記録")
++                        }.navigationTitle(L("食事の記録"))
+                     } label: {
+                         HStack {
+                             if let image = storedThumbnail(record) { Image(uiImage: image).resizable().scaledToFit().frame(width: 65, height: 55) }
+                             VStack(alignment: .leading) {
+                                 if let number = record.sequenceNumber { Text("#\(String(format: "%06d", number))").font(.caption.monospacedDigit()).foregroundStyle(green) }
+-                                Text(record.mealType ?? record.imageName)
++                                Text(L(record.mealType ?? record.imageName))
+                                 Text(record.date, format: .dateTime.month().day().hour().minute()).font(.caption).foregroundStyle(.secondary)
+                                 if let note = record.note, !note.isEmpty { Text(note).font(.caption).lineLimit(1) }
+                             }
+                             Spacer()
+                             if let nutrition = record.nutrition { Text("\(nutrition.energy_kcal, specifier: "%.0f") kcal") }
+-                            else { Text(record.analysisStatus ?? "未解析").font(.caption).foregroundStyle(.secondary) }
++                            else { Text(L(record.analysisStatus ?? "未解析")).font(.caption).foregroundStyle(.secondary) }
+                         }
+                     }
+                 }
+-            }.navigationTitle("保存した食事")
++            }.navigationTitle(L("保存した食事"))
+                 .toolbar {
+-                    ToolbarItem(placement: .topBarLeading) { Button("閉じる") { showHistory = false } }
++                    ToolbarItem(placement: .topBarLeading) { Button(L("閉じる")) { showHistory = false } }
+                     ToolbarItem(placement: .topBarTrailing) {
+-                        if let exportURL { ShareLink(item: exportURL) { Label("JSON出力", systemImage: "square.and.arrow.up") } }
++                        if let exportURL { ShareLink(item: exportURL) { Label(L("JSON出力"), systemImage: "square.and.arrow.up") } }
+                     }
+                 }.onAppear {
+                     do { exportURL = try model.exportURL() } catch { model.error = error.localizedDescription }
+diff --git a/LocalNutrition/LocalNutrition.entitlements b/LocalNutrition/LocalNutrition.entitlements
+new file mode 100644
+index 0000000..99f4716
+--- /dev/null
++++ b/LocalNutrition/LocalNutrition.entitlements
+@@ -0,0 +1,8 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
++<plist version="1.0">
++<dict>
++	<key>com.apple.developer.kernel.increased-memory-limit</key>
++	<true/>
++</dict>
++</plist>
+diff --git a/LocalNutrition/Localization.swift b/LocalNutrition/Localization.swift
+new file mode 100644
+index 0000000..f8a7736
+--- /dev/null
++++ b/LocalNutrition/Localization.swift
+@@ -0,0 +1,218 @@
++import Foundation
++
++// Japanese / English user interface.
++//
++// The Japanese text is the key. The language follows the device (Japanese if its first preferred language is
++// Japanese, English otherwise) until the user chooses one with the switch in the toolbar; the choice is kept.
++// In English the text below is shown (or the key itself if it is missing).
++// Values that are stored in records and exports (analysis status such as "解析済み", meal types such as
++// "昼食", input names) stay in Japanese for compatibility and are translated only when displayed.
++// Nothing here changes the prompts or the model computation.
++
++enum AppLanguage {
++    /// UserDefaults key of the in-app language switch: "ja", "en", or empty/absent = follow the device.
++    static let storageKey = "uiLanguage"
++    static var deviceIsJapanese: Bool { (Locale.preferredLanguages.first ?? "en").hasPrefix("ja") }
++    static var isJapanese: Bool {
++        switch UserDefaults.standard.string(forKey: storageKey) {
++        case "ja": return true
++        case "en": return false
++        default: return deviceIsJapanese
++        }
++    }
++}
++
++/// Display text for a Japanese UI string (returns the input unchanged if it is not a known key,
++/// e.g. text that is already localized or comes from the system).
++func L(_ japanese: String) -> String {
++    AppLanguage.isJapanese ? japanese : (englishText[japanese] ?? japanese)
++}
++
++/// Display text with format arguments (%@, %ld). The English text keeps the same specifiers in the same order.
++func LF(_ japanese: String, _ arguments: CVarArg...) -> String {
++    String(format: L(japanese), arguments: arguments)
++}
++
++let englishText: [String: String] = [
++    // Header and general
++    "食事を撮って、栄養を知る。": "Photograph a meal, see its nutrients.",
++    "写真の解析も、食事の記録も、この端末の中で。": "Analysis and records stay on this device.",
++    "食品成分表から計算する": "Calculate from the food composition table",
++    "写真からの値は概算です。食材の重量や油・調味料は写真だけでは確定できません。":
++        "Values from a photograph are approximate. Weights, oil and seasonings cannot be determined from a photograph alone.",
++    "記録": "History",
++    "確認": "Notice",
++    "閉じる": "Close",
++    "中止": "Cancel",
++
++    // 1 Photo
++    "1  食事の写真": "1  Meal photo",
++    "食事全体が写るように撮影してください": "Take the photo so that the whole meal is visible",
++    "写真番号 #%@": "Photo #%@",
++    "この端末ではカメラを使用できません。": "The camera is not available on this device.",
++    "設定アプリでLocal Nutritionのカメラへのアクセスを許可してください。": "Allow camera access for Local Nutrition in the Settings app.",
++    "食事を撮影して記録": "Photograph and record a meal",
++    "次の食事を撮影": "Photograph the next meal",
++    "撮影した写真と日時は自動保存され、栄養を解析します。": "The photo and its date are saved automatically, then analysed.",
++    "保存済みの写真を使う": "Use a saved photo",
++    "写真": "Photos",
++    "ファイル": "Files",
++    "写真を保存済み": "Photo saved",
++    "食事": "Meal",
++    "朝食": "Breakfast",
++    "昼食": "Lunch",
++    "夕食": "Dinner",
++    "間食": "Snack",
++    "料理名やメモ": "Dish name or note",
++    "食事区分・メモ・分量の変更を保存": "Save meal, note and portion",
++    "解析に失敗しても写真は記録に残ります。": "The photo stays in the history even if the analysis fails.",
++    "撮影した写真を取得できませんでした。もう一度撮影してください。": "The photo could not be obtained. Please take it again.",
++
++    // 2 Analysis
++    "2  端末内で栄養を推定": "2  On-device nutrient estimation",
++    "解析モデル": "Model",
++    "Qwen3-VL %@ · 端末内で利用可能": "Qwen3-VL %@ · available on this device",
++    "%@モデルのフォルダを追加": "Add the %@ model folder",
++    "端末の「ファイル」でQwen3-VL-%@-Instruct-4bitフォルダを選択してください。":
++        "Select the Qwen3-VL-%@-Instruct-4bit folder in Files.",
++    "追加済みモデルを再確認": "Re-check installed models",
++    "8Bは約5.4GBのモデルです。端末の空き容量とメモリにより解析できない場合があります。":
++        "The 8B model is about 5.4 GB. It may not run, depending on free storage and memory.",
++    "解析モード": "Analysis mode",
++    "通常": "Consumer",
++    "研究プロトコル": "Research protocol",
++    "論文の研究プロトコル（L0）で解析します。重さが空欄なら none 条件、入力すると W 条件（重量の一文を付加）です。":
++        "Analyses with the research protocol of the paper (L0). Empty weight: none condition; with a weight: W condition (a weight sentence is appended).",
++    "料理だけの重さ": "Weight of the food only",
++    "任意": "optional",
++    "器や容器の重さは含めないでください。器ごと量る場合は、先に器だけを量って差し引きます。一括解析では重さは使いません。":
++        "Do not include the plate or container. If you weigh it on the plate, weigh the plate alone first and subtract. Batch analysis does not use the weight.",
++    "重さは 1〜5000 g の数値で入力してください。": "Enter a weight between 1 and 5,000 g.",
++    "推定の条件": "Estimation settings",
++    "写真を1人分とみなす": "Treat the photo as one serving",
++    "日本の標準的な食事を想定": "Assume a standard Japanese meal",
++    "条件を変えた場合は再解析してください。分量は結果の倍率で調整できます。":
++        "Analyse again after changing the settings. The portion can be adjusted with the multiplier.",
++    "栄養を再解析": "Analyse again",
++    "AI推定値": "AI estimate",
++    "食べる分量": "Portion eaten",
++    "半分": "Half",
++    "全部": "All",
++    "1.5倍": "1.5×",
++    "2倍": "2×",
++    "栄養値を保存済み": "Nutrients saved",
++    "分量の変更を保存": "Save portion",
++    "AIの応答を確認": "Show the model response",
++    "たんぱく質": "Protein",
++    "脂質": "Fat",
++    "炭水化物": "Carbohydrate",
++    "食塩相当量": "Salt equivalent",
++    "データ不足": "No data",
++
++    // 3 Batch
++    "3  フォルダの画像を一括解析": "3  Batch analysis of a folder",
++    "端末内の画像セット": "Image sets on this device",
++    "ファイルアプリの「このiPad内（iPhoneでは「このiPhone内」）› Local Nutrition › images」に置いたフォルダが一覧に出ます。数枚だけ試すときは、画像をコピーした新しいフォルダを images の中に作ってください。":
++        "Folders placed in Files › On My iPad (On My iPhone) › Local Nutrition › images are listed here. To try a few images, make a new folder inside images and copy them into it.",
++    "images フォルダに画像セット（サブフォルダ）がありません。": "There are no image sets (subfolders) in the images folder.",
++    "画像セット": "Image set",
++    "枚数: 全部": "Images: all",
++    "枚数: 先頭 %ld 枚": "Images: first %ld",
++    "このセットを一括解析": "Analyse this set",
++    "セット一覧を更新": "Refresh the list",
++    "ほかの場所（iCloud Drive など）から選ぶ": "Choose from another location (e.g. iCloud Drive)",
++    "iCloud Driveなどのフォルダ内の画像を、選択中の%@モデルで順番に解析します。サブフォルダ内も対象です。":
++        "Analyses the images of a folder (e.g. in iCloud Drive), subfolders included, one by one with the selected %@ model.",
++    "画像フォルダを選ぶ": "Choose an image folder",
++    "写真を複数選ぶ": "Choose several photos",
++    "画像ファイルを複数選ぶ": "Choose several image files",
++    "一括解析を中止": "Stop batch analysis",
++    "結果: %@": "Result: %@",
++    "結果JSONを共有・iCloud Driveに保存": "Share the result JSON or save it to iCloud Drive",
++    "JSONは1枚ごとに更新されます。同じフォルダを選び直すと未完了分から再開できます。長時間の解析中はアプリを開いたままにしてください。":
++        "The JSON is updated after every image. Choosing the same folder again resumes from the unfinished images. Keep the app open during long runs.",
++    "フォルダ内の画像を探しています…": "Looking for images in the folder…",
++    "0 / %ld 枚": "0 / %ld images",
++    "%ld / %ld 枚が完了（続きから実行）": "%ld / %ld images done (resuming)",
++    "%ld / %ld 枚を解析中": "Analysing %ld / %ld",
++    "%ld / %ld 枚が完了": "%ld / %ld images done",
++    "%ld / %ld 枚を処理、成功 %ld 枚": "%ld / %ld images processed, %ld succeeded",
++    "一括解析を中止しました。完了分のJSONは保存済みです。": "Batch analysis stopped. The JSON of the finished images has been saved.",
++    "一括解析が完了しました。": "Batch analysis finished.",
++    "選択した場所に解析できる画像がありません。": "There are no images to analyse in the selected location.",
++    "images フォルダに画像セットがありません。": "There are no image sets in the images folder.",
++    "フォルダを読み取れませんでした: %@": "The folder could not be read: %@",
++    "画像セットを読み取れませんでした: %@": "The image set could not be read: %@",
++    "一括結果の保存先を作れませんでした: %@": "The folder for batch results could not be created: %@",
++    "一括結果を保存できませんでした: %@": "The batch results could not be saved: %@",
++
++    // Calculator
++    "食品成分表で計算": "Food composition calculator",
++    "食品と可食部の重さを入力して、AI推定値と比べられます。": "Enter foods and edible weights to compare with the AI estimate.",
++    "食品を追加": "Add food",
++    "重さ": "Weight",
++    "重さを0より大きい10,000g以下の数値で入力してください。": "Enter a weight greater than 0 and up to 10,000 g.",
++    "出典：日本食品標準成分表（八訂）増補2023年（2026年3月訂正反映）":
++        "Source: Standard Tables of Food Composition in Japan 2020 (8th ed.), Supplement 2023 (corrections of March 2026)",
++    "成分値は可食部100g当たり。Tr（微量）は計算上0、括弧付きの推定値は数値として使用しています。":
++        "Values per 100 g edible portion. Tr (trace) is counted as 0; estimated values in parentheses are used as numbers.",
++    "%@ kcal / 100g · 食品番号 %@": "%@ kcal / 100 g · food no. %@",
++    "ご飯、鶏、豆腐など": "e.g. ご飯, 鶏, 豆腐 (Japanese food names)",
++    "食品を検索（%ld件）": "Search foods (%ld)",
++
++    // History
++    "解析用データを書き出す": "Export data for analysis",
++    "「ファイル」アプリ → このiPhone / iPad内 → Local Nutrition → ResearchExport に、番号付き写真、results.csv、records.jsonを保存しました。":
++        "Numbered photos, results.csv and records.json were saved to Files › On My iPhone / iPad › Local Nutrition › ResearchExport.",
++    "結果CSVを共有": "Share results CSV",
++    "詳細JSONを共有": "Share detailed JSON",
++    "解析ログJSONLを共有": "Share analysis log (JSONL)",
++    "保存した食事がここに表示されます。": "Saved meals appear here.",
++    "写真は保存されています。栄養値はまだありません。": "The photo is saved. There are no nutrient values yet.",
++    "この記録を開いて編集・再解析": "Open this record to edit or analyse again",
++    "元の写真を書き出す": "Export the original photo",
++    "モデル入力: model_inputs/%@": "Model input: model_inputs/%@",
++    "モデル入力JPEGを書き出す": "Export the model input JPEG",
++    "解析時間：%@秒、分量倍率：%@": "Analysis time: %@ s, portion multiplier: %@",
++    "プロンプトと生の応答": "Prompt and raw response",
++    "モデル別の解析履歴": "Analyses by model",
++    "食事の記録": "Meal record",
++    "保存した食事": "Saved meals",
++    "JSON出力": "Export JSON",
++
++    // Status (some are stored values, translated on display)
++    "食事を撮影して記録しましょう": "Photograph a meal to record it",
++    "写真と撮影日時を保存しました": "Photo and date saved",
++    "記録を開きました": "Record opened",
++    "モデルを読み込んでいます…": "Loading the model…",
++    "端末内で食事を解析しています…": "Analysing the meal on this device…",
++    "解析完了（%ld秒）": "Analysis finished (%ld s)",
++    "解析を中止しました": "Analysis cancelled",
++    "解析できませんでした": "Analysis failed",
++    "中止しています…": "Cancelling…",
++    "食事の記録を更新しました": "Meal record updated",
++    "%@モデルをコピーしています…": "Copying the %@ model…",
++    "%@モデルを追加しました": "The %@ model was added",
++    "未解析": "Not analysed",
++    "解析中": "Analysing",
++    "解析済み": "Analysed",
++    "解析中止": "Cancelled",
++    "解析失敗": "Failed",
++    "読込失敗": "Could not be read",
++    "食事の撮影": "Camera photo",
++    "写真ライブラリ": "Photo library",
++
++    // Errors
++    "保存データを読み込めませんでした: %@": "The saved data could not be read: %@",
++    "記録の更新に失敗しました: %@": "The record could not be updated: %@",
++    "保存できませんでした: %@": "Could not be saved: %@",
++    "モデルを追加できませんでした: %@": "The model could not be added: %@",
++    "AIの応答を栄養値として読み取れませんでした。生の応答を確認して、再解析してください。":
++        "The model response could not be read as nutrient values. Check the raw response and analyse again.",
++    "AIの出力が完成する前に終了しました。写真と応答は保存されています。再解析してください。":
++        "The model output ended before it was complete. The photo and response are saved. Please analyse again.",
++    "このモデルは端末にありません。ファイルアプリからモデルフォルダを追加してください。":
++        "This model is not on the device. Add the model folder with the Files app.",
++    "画像を読み込めませんでした。別の画像を選んでください。": "The image could not be read. Please choose another image.",
++    "モデルの画像処理設定を読み取れませんでした。": "The image settings of the model could not be read.",
++]
+diff --git a/LocalNutrition/MealViewModel.swift b/LocalNutrition/MealViewModel.swift
+index bab3e7a..f167a16 100644
+--- a/LocalNutrition/MealViewModel.swift
++++ b/LocalNutrition/MealViewModel.swift
+@@ -19,6 +19,9 @@ final class MealViewModel: ObservableObject {
+     @Published var saved = false
+     @Published var singleServing = true
+     @Published var japanesePersona = false
++    // Research protocol only: weight of the food itself (container excluded), typed by the user.
++    // Empty = none condition; a valid number = W condition.
++    @Published var declaredWeightText = ""
+     @Published var analysisMode: AnalysisMode = .consumer {
+         didSet { UserDefaults.standard.set(analysisMode.rawValue, forKey: "analysisMode") }
+     }
+@@ -34,6 +37,10 @@ final class MealViewModel: ObservableObject {
+     @Published var batchExportURL: URL?
+     @Published var batchProgress = ""
+     @Published var batchIsRunning = false
++    // Image sets kept inside the app: Documents/images/<set>/ (same layout as the research batch application).
++    @Published var imageSets: [String] = []
++    @Published var selectedImageSet = ""
++    @Published var imageSetLimit = 0        // 0 = all images of the set (file-name order)
+     private var imageURL: URL?
+     private var currentRecord: MealRecord?
+     private var activeVariant: VLMVariant = .fourB
+@@ -41,6 +48,9 @@ final class MealViewModel: ObservableObject {
+     private var activeParseStage: String?
+     private var activeRunID = UUID()
+     private var activeModelInputFilename: String?
++    private var activeDeclaredWeight: Double?
++    private var activeGenerationSeconds: Double?
++    private var activeWeightsSHA256: String?
+     private let service = VLMService()
+     private var task: Task<Void, Never>?
+     private(set) var lastPrompt = ""
+@@ -65,15 +75,29 @@ final class MealViewModel: ObservableObject {
+             }
+             if needsMigration { try RecordStorage.save(records) }
+             refreshInstalledModels()
++            refreshImageSets()
+             if let url = Bundle.main.url(forResource: "foods", withExtension: "json") {
+                 foods = try JSONDecoder().decode([Food].self, from: Data(contentsOf: url))
+             }
+-        } catch { self.error = "保存データを読み込めませんでした: \(error.localizedDescription)" }
++        } catch { self.error = LF("保存データを読み込めませんでした: %@", error.localizedDescription) }
+     }
+ 
+     var displayedResult: Nutrition? { result?.scaled(by: portionMultiplier) }
++    private var declaredWeightTrimmed: String {
++        let halfWidth = declaredWeightText.applyingTransform(.fullwidthToHalfwidth, reverse: false) ?? declaredWeightText
++        return halfWidth.trimmingCharacters(in: .whitespacesAndNewlines).replacingOccurrences(of: ",", with: "")
++    }
++    var declaredWeight: Double? {
++        guard analysisMode == .research, !declaredWeightTrimmed.isEmpty,
++              let grams = Double(declaredWeightTrimmed), grams.isFinite, grams >= 1, grams <= 5000 else { return nil }
++        return grams
++    }
++    var declaredWeightIsInvalid: Bool {
++        analysisMode == .research && !declaredWeightTrimmed.isEmpty && declaredWeight == nil
++    }
++
+     var prompt: String {
+-        if analysisMode == .research { return ResearchProtocol.prompt }
++        if analysisMode == .research { return ResearchProtocol.promptText(declaredWeight: declaredWeight) }
+         var text = "Estimate nutrition of the food in this image from visual appearance and portion size only. Do not read text or nutrition labels. Return exactly ONE JSON object with these five keys: energy_kcal, protein_g, fat_g, carb_g, salt_g. Quote all keys. All values must be nonnegative numbers, without units. Do not include basis, explanation, markdown, or repeated text. End immediately after the closing brace."
+         if singleServing { text += " The image shows exactly one standard single serving for one person (ichinin-ikkai-bun). Estimate the nutritional content of that single serving." }
+         if japanesePersona { text = "You are a Japanese registered dietitian (kanri-eiyoshi). You are deeply familiar with standard single-serving portion sizes of everyday Japanese meals. " + text }
+@@ -91,7 +115,9 @@ final class MealViewModel: ObservableObject {
+             guard let source = UIImage(data: data) else { throw NutritionError.invalidImage }
+             let ratio = min(1, 1024 / max(source.size.width, source.size.height))
+             let size = CGSize(width: source.size.width * ratio, height: source.size.height * ratio)
+-            let format = UIGraphicsImageRendererFormat(); format.scale = 1
++            // scale 1 and the standard (sRGB, 8-bit) range, so that the model input does not depend on
++            // the screen of the device (e.g. Display P3 photographs on recent iPhones and iPads).
++            let format = UIGraphicsImageRendererFormat(); format.scale = 1; format.preferredRange = .standard
+             let normalized = UIGraphicsImageRenderer(size: size, format: format).image { _ in source.draw(in: CGRect(origin: .zero, size: size)) }
+             guard let jpg = normalized.jpegData(compressionQuality: 0.88) else { throw NutritionError.invalidImage }
+             // Keep a separate full-resolution photograph. Inference uses only the resized copy.
+@@ -112,7 +138,7 @@ final class MealViewModel: ObservableObject {
+             image = normalized; imageURL = url; imageName = name
+             currentRecord = record; records = updated; capturedAt = timestamp; note = ""
+             result = nil; rawResponse = ""; error = nil; portionMultiplier = 1; saved = false; seconds = 0
+-            portions = []
++            portions = []; declaredWeightText = ""
+             status = "写真と撮影日時を保存しました"
+             return record
+     }
+@@ -132,13 +158,16 @@ final class MealViewModel: ObservableObject {
+             guard let data = try RecordStorage.photoData(for: record), let source = UIImage(data: data) else { throw NutritionError.invalidImage }
+             let ratio = min(1, 1024 / max(source.size.width, source.size.height))
+             let size = CGSize(width: source.size.width * ratio, height: source.size.height * ratio)
+-            let format = UIGraphicsImageRendererFormat(); format.scale = 1
++            // scale 1 and the standard (sRGB, 8-bit) range, so that the model input does not depend on
++            // the screen of the device (e.g. Display P3 photographs on recent iPhones and iPads).
++            let format = UIGraphicsImageRendererFormat(); format.scale = 1; format.preferredRange = .standard
+             let preview = UIGraphicsImageRenderer(size: size, format: format).image { _ in source.draw(in: CGRect(origin: .zero, size: size)) }
+             let url = FileManager.default.temporaryDirectory.appendingPathComponent("meal-input.jpg")
+             guard let jpg = preview.jpegData(compressionQuality: 0.88) else { throw NutritionError.invalidImage }
+             try jpg.write(to: url, options: .atomic)
+             image = preview; imageURL = url; imageName = record.imageName
+             currentRecord = record; capturedAt = record.date; mealType = record.mealType ?? "昼食"; note = record.note ?? ""
++            declaredWeightText = ""
+             if record.nutrition != nil, let original = try? Nutrition.parse(record.rawResponse) {
+                 result = original; portionMultiplier = record.portionMultiplier
+             } else { result = record.nutrition; portionMultiplier = 1 }
+@@ -164,21 +193,24 @@ final class MealViewModel: ObservableObject {
+             record.seconds = seconds; record.portionMultiplier = portionMultiplier
+             if let status {
+                 record.modelInputFilename = activeModelInputFilename
+-                let run = AnalysisRun(id: activeRunID, date: Date(), modelID: activeVariant.modelID,
++                var run = AnalysisRun(id: activeRunID, date: Date(), modelID: activeVariant.modelID,
+                     status: status, nutrition: displayedResult, rawResponse: rawResponse,
+                     prompt: lastPrompt, seconds: seconds, portionMultiplier: portionMultiplier,
+                     error: error, generationSettings: activeMode == .research ? VLMService.researchSettings : VLMService.generationSettings,
+                     modelInputFilename: activeModelInputFilename, analysisMode: activeMode,
+                     parseStage: activeParseStage)
++                if activeMode == .research {
++                    run.condition = ResearchProtocol.condition(declaredWeight: activeDeclaredWeight)
++                    run.declaredWeight_g = activeDeclaredWeight
++                }
++                run.generationSeconds = activeGenerationSeconds
++                run.modelWeightsSHA256 = activeWeightsSHA256
++                run.deviceModel = Provenance.deviceModel; run.osVersion = Provenance.osVersion
++                run.appVersion = Provenance.appVersion; run.libraries = Provenance.libraries
+                 record.analyses = (record.analyses ?? []) + [run]
+             } else if var runs = record.analyses, !runs.isEmpty {
+                 let previous = runs.removeLast()
+-                runs.append(AnalysisRun(id: previous.id, date: previous.date, modelID: previous.modelID,
+-                    status: previous.status, nutrition: displayedResult, rawResponse: previous.rawResponse,
+-                    prompt: previous.prompt, seconds: previous.seconds, portionMultiplier: portionMultiplier,
+-                    error: previous.error, generationSettings: previous.generationSettings,
+-                    modelInputFilename: previous.modelInputFilename, analysisMode: previous.analysisMode,
+-                    parseStage: previous.parseStage))
++                runs.append(previous.updatingPortion(nutrition: displayedResult, portionMultiplier: portionMultiplier))
+                 record.analyses = runs
+             }
+         }
+@@ -189,19 +221,25 @@ final class MealViewModel: ObservableObject {
+     func analyze() {
+         guard let imageURL, !isBusy else { return }
+         guard installedModels.contains(selectedVariant) else { error = NutritionError.missingModel.localizedDescription; return }
++        guard !declaredWeightIsInvalid else { error = "重さは 1〜5000 g の数値で入力してください。"; return }
+         let variant = selectedVariant
+         let mode = analysisMode
++        let weight = declaredWeight
+         let requestPrompt = prompt
+         isBusy = true
+         task = Task {
+             defer { isBusy = false; task = nil }
+-            await analyzeCurrent(imageURL: imageURL, variant: variant, mode: mode, requestPrompt: requestPrompt)
++            await analyzeCurrent(imageURL: imageURL, variant: variant, mode: mode, requestPrompt: requestPrompt,
++                                 declaredWeight: weight)
+         }
+     }
+ 
+-    private func analyzeCurrent(imageURL: URL, variant: VLMVariant, mode: AnalysisMode, requestPrompt: String) async {
++    private func analyzeCurrent(imageURL: URL, variant: VLMVariant, mode: AnalysisMode, requestPrompt: String,
++                                declaredWeight: Double? = nil) async {
+         activeVariant = variant
+         activeMode = mode
++        activeDeclaredWeight = mode == .research ? declaredWeight : nil
++        activeGenerationSeconds = nil
+         activeParseStage = nil
+         activeRunID = UUID()
+         activeModelInputFilename = nil
+@@ -218,9 +256,11 @@ final class MealViewModel: ObservableObject {
+             try persist(status: "解析中")
+             status = "モデルを読み込んでいます…"
+             try await service.load(variant)
++            activeWeightsSHA256 = await service.weightsSHA256(for: variant)
+             try Task.checkCancellation()
+             status = "端末内で食事を解析しています…"
+-            try await service.generate(imageURL: persistedInput, prompt: requestPrompt, variant: variant, mode: mode) { [weak self] response in
++            activeGenerationSeconds = try await service.generate(imageURL: persistedInput, prompt: requestPrompt,
++                                                                 variant: variant, mode: mode) { [weak self] response in
+                 await self?.updateResponse(response)
+             }
+             seconds = Date().timeIntervalSince(start)
+@@ -234,8 +274,7 @@ final class MealViewModel: ObservableObject {
+             }
+             try persist(status: "解析済み", includeResult: true)
+             saved = true
+-            status = "解析完了（\(Int(seconds))秒）"
+-            print("NUTRITION_SMOKE_PASS \(rawResponse)")
++            status = LF("解析完了（%ld秒）", Int(seconds))
+         } catch is CancellationError {
+             seconds = Date().timeIntervalSince(start)
+             result = nil; status = "解析を中止しました"
+@@ -244,8 +283,7 @@ final class MealViewModel: ObservableObject {
+             seconds = Date().timeIntervalSince(start)
+             self.error = error.localizedDescription; status = "解析できませんでした"
+             result = nil
+-            do { try persist(status: "解析失敗", includeResult: true) } catch { self.error = "記録の更新に失敗しました: \(error.localizedDescription)" }
+-            print("NUTRITION_SMOKE_FAIL \(error)")
++            do { try persist(status: "解析失敗", includeResult: true) } catch { self.error = LF("記録の更新に失敗しました: %@", error.localizedDescription) }
+         }
+     }
+     private func updateResponse(_ response: String) { rawResponse = response }
+@@ -297,7 +335,7 @@ final class MealViewModel: ObservableObject {
+             } catch {
+                 if scoped { folder.stopAccessingSecurityScopedResource() }
+                 isBusy = false; batchIsRunning = false; task = nil
+-                if !(error is CancellationError) { self.error = "フォルダを読み取れませんでした: \(error.localizedDescription)" }
++                if !(error is CancellationError) { self.error = LF("フォルダを読み取れませんでした: %@", error.localizedDescription) }
+             }
+         }
+     }
+@@ -311,9 +349,10 @@ final class MealViewModel: ObservableObject {
+         guard installedModels.contains(selectedVariant) else { error = NutritionError.missingModel.localizedDescription; return false }
+         let variant = selectedVariant
+         let mode = analysisMode
+-        let requestPrompt = prompt
++        // Batch analysis is always the none condition in research mode: a typed weight belongs to one photo.
++        let requestPrompt = mode == .research ? ResearchProtocol.prompt : prompt
+         batchExportURL = nil; batchIsRunning = true; isBusy = true
+-        batchProgress = "0 / \(names.count) 枚"
++        batchProgress = LF("0 / %ld 枚", names.count)
+         task = Task {
+             defer { onFinish(); isBusy = false; batchIsRunning = false; task = nil }
+             var report: BatchReport
+@@ -335,16 +374,16 @@ final class MealViewModel: ObservableObject {
+                 try BatchExport.save(report, to: url)
+                 batchExportURL = url
+             } catch {
+-                self.error = "一括結果の保存先を作れませんでした: \(error.localizedDescription)"
++                self.error = LF("一括結果の保存先を作れませんでした: %@", error.localizedDescription)
+                 return
+             }
+             let unfinishedStatuses: Set<String> = ["未解析", "解析中", "解析中止"]
+             let processed = Set(report.items.filter { !unfinishedStatuses.contains($0.status) }.map(\.selectionIndex))
+-            batchProgress = "\(processed.count) / \(names.count) 枚が完了（続きから実行）"
++            batchProgress = LF("%ld / %ld 枚が完了（続きから実行）", processed.count, names.count)
+             for index in names.indices {
+                 if processed.contains(index + 1) { continue }
+                 if Task.isCancelled { report.cancelled = true; break }
+-                batchProgress = "\(index + 1) / \(names.count) 枚を解析中"
++                batchProgress = LF("%ld / %ld 枚を解析中", index + 1, names.count)
+                 do {
+                     let unfinished = report.items.first { $0.selectionIndex == index + 1 }
+                     let record: MealRecord
+@@ -380,17 +419,17 @@ final class MealViewModel: ObservableObject {
+                 }
+                 do { try BatchExport.save(report, to: url) }
+                 catch {
+-                    self.error = "一括結果を保存できませんでした: \(error.localizedDescription)"
++                    self.error = LF("一括結果を保存できませんでした: %@", error.localizedDescription)
+                     report.cancelled = true
+                     break
+                 }
+-                batchProgress = "\(report.items.count) / \(names.count) 枚が完了"
++                batchProgress = LF("%ld / %ld 枚が完了", report.items.count, names.count)
+             }
+             report.completedAt = Date()
+             do { try BatchExport.save(report, to: url) }
+-            catch { self.error = "一括結果を保存できませんでした: \(error.localizedDescription)" }
++            catch { self.error = LF("一括結果を保存できませんでした: %@", error.localizedDescription) }
+             let success = report.items.filter { $0.status == "解析済み" }.count
+-            batchProgress = "\(report.items.count) / \(names.count) 枚を処理、成功 \(success) 枚"
++            batchProgress = LF("%ld / %ld 枚を処理、成功 %ld 枚", report.items.count, names.count, success)
+             status = report.cancelled ? "一括解析を中止しました。完了分のJSONは保存済みです。" : "一括解析が完了しました。"
+         }
+         return true
+@@ -401,7 +440,7 @@ final class MealViewModel: ObservableObject {
+         if let result = displayedResult, !result.isValid { return }
+         do {
+             try persist(includeResult: result != nil); saved = true; status = "食事の記録を更新しました"
+-        } catch { self.error = "保存できませんでした: \(error.localizedDescription)" }
++        } catch { self.error = LF("保存できませんでした: %@", error.localizedDescription) }
+     }
+     func exportURL() throws -> URL {
+         let url = FileManager.default.temporaryDirectory.appendingPathComponent("nutrition-records.json")
+@@ -410,12 +449,52 @@ final class MealViewModel: ObservableObject {
+         return url
+     }
+     func exportResearch() throws -> URL { try ResearchExport.create(records: records) }
++    static func imageSetsDirectory() throws -> URL {
++        let documents = try FileManager.default.url(for: .documentDirectory, in: .userDomainMask,
++                                                    appropriateFor: nil, create: true)
++        let directory = documents.appendingPathComponent("images", isDirectory: true)
++        try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
++        return directory
++    }
++
++    func refreshImageSets() {
++        guard let directory = try? Self.imageSetsDirectory(),
++              let names = try? FileManager.default.contentsOfDirectory(at: directory, includingPropertiesForKeys: [.isDirectoryKey],
++                                                                       options: [.skipsHiddenFiles]) else { imageSets = []; return }
++        imageSets = names.filter { (try? $0.resourceValues(forKeys: [.isDirectoryKey]).isDirectory) == true }
++            .map(\.lastPathComponent)
++            .sorted { $0.localizedStandardCompare($1) == .orderedAscending }
++        if !imageSets.contains(selectedImageSet) { selectedImageSet = imageSets.first ?? "" }
++    }
++
++    // Batch analysis of Documents/images/<set>/ (subfolders included), first `imageSetLimit` images in
++    // file-name order (0 = all). No file picker or security-scoped access is needed for these folders.
++    func analyzeImageSet() {
++        guard !isBusy && !isInstallingModel else { return }
++        guard !selectedImageSet.isEmpty, let root = try? Self.imageSetsDirectory() else {
++            error = "images フォルダに画像セットがありません。"; return
++        }
++        let folder = root.appendingPathComponent(selectedImageSet, isDirectory: true)
++        do {
++            var images = try FolderImageLoader.images(in: folder)
++            if imageSetLimit > 0 { images = Array(images.prefix(imageSetLimit)) }
++            let sourceID = BatchExport.sha256(Data("images/\(selectedImageSet)".utf8))
++            startBatch(names: images.map(\.relativePath), sourceFolderName: selectedImageSet,
++                       sourceFolderID: sourceID) { index in
++                let url = images[index].url
++                return try await Task.detached(priority: .utility) { try Data(contentsOf: url) }.value
++            }
++        } catch {
++            self.error = LF("画像セットを読み取れませんでした: %@", error.localizedDescription)
++        }
++    }
++
+     func refreshInstalledModels() {
+         installedModels = Set(VLMVariant.allCases.filter { (try? ModelStore.url(for: $0)) != nil })
+     }
+     func installModel(from url: URL, as variant: VLMVariant) {
+         guard !isInstallingModel && !isBusy else { return }
+-        isInstallingModel = true; modelInstallStatus = "\(variant.rawValue)モデルをコピーしています…"
++        isInstallingModel = true; modelInstallStatus = LF("%@モデルをコピーしています…", variant.rawValue)
+         Task {
+             do {
+                 try await Task.detached {
+@@ -424,10 +503,10 @@ final class MealViewModel: ObservableObject {
+                     try ModelStore.install(from: url, as: variant)
+                 }.value
+                 refreshInstalledModels()
+-                modelInstallStatus = "\(variant.rawValue)モデルを追加しました"
++                modelInstallStatus = LF("%@モデルを追加しました", variant.rawValue)
+             } catch {
+                 modelInstallStatus = ""
+-                self.error = "モデルを追加できませんでした: \(error.localizedDescription)"
++                self.error = LF("モデルを追加できませんでした: %@", error.localizedDescription)
+             }
+             isInstallingModel = false
+         }
+diff --git a/LocalNutrition/Nutrition.swift b/LocalNutrition/Nutrition.swift
+index 5f6ccb9..8c6160e 100644
+--- a/LocalNutrition/Nutrition.swift
++++ b/LocalNutrition/Nutrition.swift
+@@ -6,17 +6,59 @@ enum AnalysisMode: String, Codable, CaseIterable, Identifiable, Sendable {
+     case consumer = "consumer"
+     case research = "research_protocol"
+     var id: String { rawValue }
+-    var title: String { self == .consumer ? "通常" : "研究プロトコル" }
++    var title: String { L(self == .consumer ? "通常" : "研究プロトコル") }
+ }
+ 
+ enum ResearchProtocol {
+-    // Verbatim BASE from LLM-Local/VLM-Local/BatchRunnerView.swift (Appendix A, L0/none).
++    // Verbatim BASE from the research batch application (BatchRunnerView.swift, tag paper2-ipad-run;
++    // Appendix A of the paper, L0 / none condition). Do not edit: identity with that string is what
++    // makes this mode comparable with the published runs.
+     static let prompt =
+         "Look at this food image. Estimate the nutritional content based solely on visual "
+         + "appearance\u{2014}color, shape, ingredients, and portion size. Do NOT read any text, labels, "
+         + "or numbers visible in the image. Use only visual information. Provide a brief one-line "
+         + "explanation of your reasoning. Respond ONLY in JSON format: {energy_kcal: value, "
+         + "protein_g: value, fat_g: value, carb_g: value, salt_g: value, basis: one-line reasoning}"
++
++    // Weight (W) condition: identical to pilot_p23_local_v4.py (laptop runs of the declared-weight
++    // experiment): user text + " The total weight of the food shown is {w:g} g."
++    static let weightSeparator = " "
++    static func weightSentence(grams: Double) -> String {
++        "The total weight of the food shown is \(formatGrams(grams)) g."
++    }
++    static func promptText(declaredWeight: Double?) -> String {
++        guard let grams = declaredWeight else { return prompt }
++        return prompt + weightSeparator + weightSentence(grams: grams)
++    }
++    static func condition(declaredWeight: Double?) -> String { declaredWeight == nil ? "none" : "W" }
++    // Same number format as the laptop runs (Python f"{w:g}", i.e. C "%g"): 350 -> "350", 352.5 -> "352.5".
++    static func formatGrams(_ grams: Double) -> String {
++        String(format: "%g", grams)
++    }
++}
++
++// Run metadata written with every analysis so that a record can be traced to the exact software,
++// weights and device that produced it.
++enum Provenance {
++    // Keep in sync with Package.resolved (checked against the research batch application).
++    static let libraries = "mlx-swift 0.31.6; mlx-swift-lm 604fae710a4e3324346fc59e3845952350acd4b7; swift-transformers 1.3.0; swift-jinja 2.3.1"
++    static let deviceModel: String = {
++        var info = utsname()
++        uname(&info)
++        let capacity = MemoryLayout.size(ofValue: info.machine)
++        return withUnsafePointer(to: &info.machine) { pointer in
++            pointer.withMemoryRebound(to: CChar.self, capacity: capacity) {
++                String(cString: $0)
++            }
++        }
++    }()
++    static let osVersion = ProcessInfo.processInfo.operatingSystemVersionString
++    static let appVersion: String = {
++        let info = Bundle.main.infoDictionary
++        let version = info?["CFBundleShortVersionString"] as? String ?? "?"
++        let build = info?["CFBundleVersion"] as? String ?? "?"
++        return "\(version) (\(build))"
++    }()
+ }
+ 
+ struct Nutrition: Codable, Equatable, Sendable {
+@@ -123,11 +165,11 @@ enum NutritionError: LocalizedError {
+     case invalidResponse, incompleteResponse, missingModel, invalidImage, invalidModelConfig
+     var errorDescription: String? {
+         switch self {
+-        case .invalidResponse: "AIの応答を栄養値として読み取れませんでした。生の応答を確認して、再解析してください。"
+-        case .incompleteResponse: "AIの出力が完成する前に終了しました。写真と応答は保存されています。再解析してください。"
+-        case .missingModel: "このモデルは端末にありません。ファイルアプリからモデルフォルダを追加してください。"
+-        case .invalidImage: "画像を読み込めませんでした。別の画像を選んでください。"
+-        case .invalidModelConfig: "モデルの画像処理設定を読み取れませんでした。"
++        case .invalidResponse: L("AIの応答を栄養値として読み取れませんでした。生の応答を確認して、再解析してください。")
++        case .incompleteResponse: L("AIの出力が完成する前に終了しました。写真と応答は保存されています。再解析してください。")
++        case .missingModel: L("このモデルは端末にありません。ファイルアプリからモデルフォルダを追加してください。")
++        case .invalidImage: L("画像を読み込めませんでした。別の画像を選んでください。")
++        case .invalidModelConfig: L("モデルの画像処理設定を読み取れませんでした。")
+         }
+     }
+ }
+@@ -201,6 +243,30 @@ struct AnalysisRun: Codable, Identifiable {
+     var modelInputFilename: String? = nil
+     var analysisMode: AnalysisMode? = nil
+     var parseStage: String? = nil
++    // Added 2026-10 for the research protocol (all optional so that older records still decode).
++    var condition: String? = nil            // "none" or "W" (research protocol only)
++    var declaredWeight_g: Double? = nil      // weight typed by the user under the W condition
++    var generationSeconds: Double? = nil     // image preprocessing + generation, excluding model loading
++    var modelWeightsSHA256: String? = nil    // "file=sha256;..." for every *.safetensors file
++    var deviceModel: String? = nil
++    var osVersion: String? = nil
++    var appVersion: String? = nil
++    var libraries: String? = nil
++
++    // Copy with a new portion multiplier, keeping every other field (used when the user changes the
++    // portion after analysis; the raw response is never changed).
++    func updatingPortion(nutrition: Nutrition?, portionMultiplier: Double) -> AnalysisRun {
++        var copy = AnalysisRun(id: id, date: date, modelID: modelID, status: status, nutrition: nutrition,
++                               rawResponse: rawResponse, prompt: prompt, seconds: seconds,
++                               portionMultiplier: portionMultiplier, error: error,
++                               generationSettings: generationSettings, modelInputFilename: modelInputFilename,
++                               analysisMode: analysisMode, parseStage: parseStage)
++        copy.condition = condition; copy.declaredWeight_g = declaredWeight_g
++        copy.generationSeconds = generationSeconds; copy.modelWeightsSHA256 = modelWeightsSHA256
++        copy.deviceModel = deviceModel; copy.osVersion = osVersion
++        copy.appVersion = appVersion; copy.libraries = libraries
++        return copy
++    }
+ }
+ 
+ struct MealRecord: Codable, Identifiable {
+@@ -323,6 +389,14 @@ enum AnalysisLog {
+         let generationSettings: String?
+         let analysisMode: AnalysisMode
+         let parseStage: String?
++        let condition: String?
++        let declaredWeight_g: Double?
++        let generationSeconds: Double?
++        let modelWeightsSHA256: String?
++        let deviceModel: String?
++        let osVersion: String?
++        let appVersion: String?
++        let libraries: String?
+     }
+     static func url() throws -> URL {
+         let documents = try FileManager.default.url(for: .documentDirectory, in: .userDomainMask,
+@@ -338,7 +412,11 @@ enum AnalysisLog {
+                     nutrition: run.nutrition, rawResponse: run.rawResponse, prompt: run.prompt,
+                     seconds: run.seconds, portionMultiplier: run.portionMultiplier,
+                     error: run.error, generationSettings: run.generationSettings,
+-                    analysisMode: run.analysisMode ?? .consumer, parseStage: run.parseStage)
++                    analysisMode: run.analysisMode ?? .consumer, parseStage: run.parseStage,
++                    condition: run.condition, declaredWeight_g: run.declaredWeight_g,
++                    generationSeconds: run.generationSeconds, modelWeightsSHA256: run.modelWeightsSHA256,
++                    deviceModel: run.deviceModel, osVersion: run.osVersion,
++                    appVersion: run.appVersion, libraries: run.libraries)
+             }
+         }.sorted { $0.analyzedAt < $1.analyzedAt }
+         let encoder = JSONEncoder(); encoder.outputFormatting = [.sortedKeys]; encoder.dateEncodingStrategy = .iso8601
+@@ -356,7 +434,11 @@ enum ResearchExport {
+         let photos = folder.appendingPathComponent("photos", isDirectory: true)
+         try FileManager.default.createDirectory(at: photos, withIntermediateDirectories: true)
+         let ordered = records.sorted { ($0.sequenceNumber ?? 0) < ($1.sequenceNumber ?? 0) }
+-        var rows = ["photo_number,photo_file,model_input_file,captured_at,meal_type,note,run_id,run_at,model_id,analysis_mode,status,energy_kcal,protein_g,fat_g,carb_g,salt_g,portion_multiplier,seconds,error"]
++        let header = ["photo_number", "photo_file", "model_input_file", "captured_at", "meal_type", "note",
++                      "run_id", "run_at", "model_id", "analysis_mode", "condition", "declared_weight_g", "status",
++                      "energy_kcal", "protein_g", "fat_g", "carb_g", "salt_g", "portion_multiplier",
++                      "seconds", "generation_seconds", "error"]
++        var rows = [header.joined(separator: ",")]
+         let stamp = ISO8601DateFormatter()
+         for record in ordered {
+             let number = String(format: "%06d", record.sequenceNumber ?? 0)
+@@ -373,11 +455,25 @@ enum ResearchExport {
+             }
+             let runs = record.analyses ?? []
+             if runs.isEmpty {
+-                rows.append(row([number, "photos/\(photoName)", "", stamp.string(from: record.date), record.mealType ?? "", record.note ?? "", "", "", "", "", record.analysisStatus ?? "未解析", "", "", "", "", "", "", "", "", ""]))
++                var cells = Array(repeating: "", count: header.count)
++                cells[0] = number; cells[1] = "photos/\(photoName)"; cells[3] = stamp.string(from: record.date)
++                cells[4] = record.mealType ?? ""; cells[5] = record.note ?? ""; cells[12] = record.analysisStatus ?? "未解析"
++                rows.append(row(cells))
+             }
+             for run in runs {
+                 let n = run.nutrition
+-                rows.append(row([number, "photos/\(photoName)", run.modelInputFilename.map { "model_inputs/\($0)" } ?? "", stamp.string(from: record.date), record.mealType ?? "", record.note ?? "", run.id.uuidString, stamp.string(from: run.date), run.modelID, (run.analysisMode ?? .consumer).rawValue, run.status, n.map { String($0.energy_kcal) } ?? "", n.map { String($0.protein_g) } ?? "", n.map { String($0.fat_g) } ?? "", n.map { String($0.carb_g) } ?? "", n.map { String($0.salt_g) } ?? "", String(run.portionMultiplier), String(run.seconds), run.error ?? ""]))
++                let cells: [String] = [
++                    number, "photos/\(photoName)", run.modelInputFilename.map { "model_inputs/\($0)" } ?? "",
++                    stamp.string(from: record.date), record.mealType ?? "", record.note ?? "",
++                    run.id.uuidString, stamp.string(from: run.date), run.modelID,
++                    (run.analysisMode ?? .consumer).rawValue, run.condition ?? "",
++                    run.declaredWeight_g.map { ResearchProtocol.formatGrams($0) } ?? "", run.status,
++                    n.map { String($0.energy_kcal) } ?? "", n.map { String($0.protein_g) } ?? "",
++                    n.map { String($0.fat_g) } ?? "", n.map { String($0.carb_g) } ?? "",
++                    n.map { String($0.salt_g) } ?? "", String(run.portionMultiplier), String(run.seconds),
++                    run.generationSeconds.map { String($0) } ?? "", run.error ?? ""]
++                assert(cells.count == header.count)
++                rows.append(row(cells))
+             }
+         }
+         try (rows.joined(separator: "\n") + "\n").write(to: folder.appendingPathComponent("results.csv"), atomically: true, encoding: .utf8)
+@@ -409,6 +505,8 @@ struct BatchItem: Codable {
+     let seconds: Double?
+     let error: String?
+     let parseStage: String?
++    let condition: String?
++    let generationSeconds: Double?
+ 
+     init(selectionIndex: Int, inputName: String, modelID: String, analysisMode: AnalysisMode = .consumer,
+          sourceSHA256: String? = nil,
+@@ -432,6 +530,8 @@ struct BatchItem: Codable {
+         seconds = run?.seconds
+         self.error = error ?? run?.error
+         parseStage = run?.parseStage
++        condition = run?.condition
++        generationSeconds = run?.generationSeconds
+     }
+ }
+ 
+diff --git a/LocalNutrition/VLMService.swift b/LocalNutrition/VLMService.swift
+index a37f1ee..4ff7e27 100644
+--- a/LocalNutrition/VLMService.swift
++++ b/LocalNutrition/VLMService.swift
+@@ -1,4 +1,5 @@
+ import Foundation
++import CryptoKit
+ import MLX
+ import MLXLMCommon
+ import MLXVLM
+@@ -28,9 +29,10 @@ private struct LocalTokenizerLoader: TokenizerLoader {
+ 
+ actor VLMService {
+     static let generationSettings = "numeric-json-v2; maxTokens=160; temperature=0; repetitionPenalty=1.1; repetitionContextSize=64; resize=512; stop=complete-json"
+-    static let researchSettings = "appendix-a-L0-none; system=empty; maxTokens=256; temperature=0; repetitionPenalty=none; stop=natural; pixels=preprocessor_config"
++    static let researchSettings = "appendix-a-L0; condition=none|W (weight sentence appended); system=empty; maxTokens=256; temperature=0; repetitionPenalty=none; stop=natural; pixels=preprocessor_config; input=jpeg<=1024px,sRGB,q0.88"
+     private var model: ModelContainer?
+     private var loadedVariant: VLMVariant?
++    private var weightHashes: [VLMVariant: String] = [:]
+ 
+     func load(_ variant: VLMVariant) async throws {
+         guard model == nil || loadedVariant != variant else { return }
+@@ -42,8 +44,41 @@ actor VLMService {
+         loadedVariant = variant
+     }
+ 
++    // SHA-256 of every *.safetensors file of the model folder, as "file=hash;file=hash".
++    // Computed once per variant (a few seconds for the 4B weights) and compared with
++    // `shasum -a 256 *.safetensors` on the computer that prepared the folder.
++    func weightsSHA256(for variant: VLMVariant) -> String? {
++        if let cached = weightHashes[variant] { return cached }
++        guard let directory = try? ModelStore.url(for: variant),
++              let names = try? FileManager.default.contentsOfDirectory(atPath: directory.path) else { return nil }
++        var parts: [String] = []
++        for name in names.filter({ $0.hasSuffix(".safetensors") }).sorted() {
++            guard let handle = try? FileHandle(forReadingFrom: directory.appendingPathComponent(name)) else { return nil }
++            defer { try? handle.close() }
++            var hasher = SHA256()
++            var finished = false
++            while !finished {
++                autoreleasepool {
++                    if let chunk = try? handle.read(upToCount: 8 * 1024 * 1024), !chunk.isEmpty {
++                        hasher.update(data: chunk)
++                    } else {
++                        finished = true
++                    }
++                }
++            }
++            parts.append(name + "=" + hasher.finalize().map { String(format: "%02x", $0) }.joined())
++        }
++        guard !parts.isEmpty else { return nil }
++        let joined = parts.joined(separator: ";")
++        weightHashes[variant] = joined
++        return joined
++    }
++
++    /// Runs one analysis and returns the time spent on image preprocessing and generation
++    /// (model loading excluded), measured as in the research batch application.
++    @discardableResult
+     func generate(imageURL: URL, prompt: String, variant: VLMVariant, mode: AnalysisMode,
+-                  onResponse: @escaping @Sendable (String) async -> Void) async throws {
++                  onResponse: @escaping @Sendable (String) async -> Void) async throws -> Double {
+         try await load(variant)
+         guard let model else { throw NutritionError.missingModel }
+         if mode == .research {
+@@ -55,6 +90,7 @@ actor VLMService {
+             let minPixels = config["min_pixels"] as? Int ?? size["shortest_edge"] as? Int
+             let maxPixels = config["max_pixels"] as? Int ?? size["longest_edge"] as? Int
+             guard let minPixels, let maxPixels else { throw NutritionError.invalidModelConfig }
++            let started = Date()
+             let raw = try await model.perform { (context: ModelContext) in
+                 let input = UserInput(chat: [.system(""), .user(prompt, images: [.url(imageURL)])],
+                                       processing: .init(minPixels: minPixels, maxPixels: maxPixels))
+@@ -64,15 +100,17 @@ actor VLMService {
+                 return try MLXLMCommon.generate(input: prepared, parameters: parameters,
+                                                context: context) { (_: [Int]) in .more }.output
+             }
++            let elapsed = Date().timeIntervalSince(started)
+             try Task.checkCancellation()
+             await onResponse(raw)
+-            return
++            return elapsed
+         }
+         // A fresh session prevents information from the previous meal leaking into this image.
+         let session = ChatSession(model, generateParameters: .init(maxTokens: 160, temperature: 0,
+                                   repetitionPenalty: 1.1, repetitionContextSize: 64),
+                                   processing: .init(resize: CGSize(width: 512, height: 512)))
+         var response = ""
++        let started = Date()
+         for try await chunk in session.streamResponse(to: prompt, images: [.url(imageURL)]) {
+             try Task.checkCancellation()
+             response += chunk
+@@ -80,7 +118,7 @@ actor VLMService {
+                 // Emit only the complete first object, then drop the stream to cancel its producer.
+                 await onResponse(object)
+                 try Task.checkCancellation()
+-                return
++                return Date().timeIntervalSince(started)
+             }
+             await onResponse(response)
+         }
+diff --git a/README.md b/README.md
+index 5a93e04..bedd453 100644
+--- a/README.md
++++ b/README.md
+@@ -1,110 +1,145 @@
+-# Local Nutrition — カメラで食事を記録するiPhone・iPadアプリ
++# Local Nutrition
+ 
+-iPhone・iPadのカメラで撮影した食事の写真を保存し、端末内のQwen3-VLによる栄養推定値を同じ記録に追加します。
++On-device energy and nutrient estimation from meal photographs with a small open vision–language model
++(Qwen3-VL, 4-bit, MLX Swift) on iPhone and iPad. No network connection is used for inference.
+ 
+-## 使い方
++This repository is the supplementary software of:
+ 
+-1. 「食事を撮影して記録」を押します。初回は端末でカメラへのアクセスを許可します。
+-2. 食事を撮影し、カメラ画面で撮影した写真の使用を確定します。
+-3. 原寸のJPEGと撮影日時が先に保存され、栄養解析が始まります。
+-4. 朝食・昼食・夕食・間食の区分、メモ、食べる分量を変更できます。変更後は保存ボタンを押します。
+-5. 「記録」から過去の写真・撮影日時・メモ・栄養推定値を確認できます。
++> Nakagawa S, Yamamoto A. *Development and evaluation of an offline nutrient estimation system on personal
++> devices* (manuscript in preparation). <!-- update with journal, DOI -->
+ 
+-撮影をキャンセルした場合は新しい記録を作りません。解析に失敗しても写真は残ります。履歴の「この記録を開いて編集・再解析」から再度解析できます。再解析は同じ写真に新しい解析履歴を追加します。
++It is research software. It is not a medical device and its estimates must not be used for clinical decisions.
++
++The interface is in Japanese or English: it follows the device language until a language is chosen with the
++"English / 日本語" button in the toolbar (the choice is kept). Stored values (analysis status such as
++`解析済み`, meal types such as `昼食`) remain in Japanese in all records and exports.
++
++## Two analysis modes
++
++| | **Research protocol** (evaluated in the paper) | Consumer (not evaluated) |
++|---|---|---|
++| Prompt | Appendix A of the paper, verbatim (`ResearchProtocol.prompt` in `Nutrition.swift`) | numeric-only JSON prompt |
++| System message | empty | none |
++| Optional weight | *W condition*: `The total weight of the food shown is {W} g.` appended | — |
++| Temperature / max tokens | 0 / 256 | 0 / 160 |
++| Repetition penalty | none | 1.1 (last 64 tokens) |
++| Stopping | natural end of generation | at the first complete JSON object |
++| Vision preprocessing | pixel limits from the model's `preprocessor_config.json` | resize to 512 × 512 |
+ 
+-## 2B・4B・8Bの切替と解析用データ
++Only the research protocol mode corresponds to the paper. The consumer mode is kept for development and was
++not evaluated; in informal use it produced estimates concentrated in a narrow range and it should not be used
++to obtain values.
+ 
+-「端末内で栄養を推定」のモデル選択で2B・4B・8Bを切り替えられます。2Bはアプリに同梱します。4Bと8Bは別途端末に追加してください。同じ写真を3モデルで順に再解析すると、元画像を1枚のまま、各モデルの結果・生の応答・実行時刻・所要時間・設定を記録します。失敗した解析も履歴に残します。モデルは切替時に1つずつメモリへ読み込みます。8Bは約5.4GBのモデルで、iPhone 17 Proでの実行可否はまだ実機で確認していません。
++In both modes the photograph is first normalised on the device: orientation corrected, scaled so that the long
++edge is at most 1,024 px, rendered in sRGB, and saved as JPEG (quality 0.88). That exact file is written to
++`Documents/model_inputs/` and is the file given to the model, so any result can be reproduced from it.
+ 
+-モデル選択の既定は4Bです。4Bはアプリに同梱していないため、端末へモデルフォルダを追加してから4B解析を実行してください。未追加のまま撮影した場合も写真は保存され、モデル追加後に再解析できます。2Bは手動で選択できます。
++The research protocol mode reproduces the batch application used for the tablet runs of the paper
++(mlx-swift-examples fork, tag `paper2-ipad-run`): same prompt string, same message structure, same generation
++parameters, same pixel limits and the same library versions:
+ 
+-## 研究走行版との実画像比較
++- mlx-swift 0.31.6
++- mlx-swift-lm `604fae710a4e3324346fc59e3845952350acd4b7` (main branch; release 3.31.3 has an image-preprocessing
++  defect and must not be used)
++- swift-transformers 1.3.0, swift-jinja 2.3.1
+ 
+-撮影後、解析で実際にモデルへ渡す正規化済みJPEGを、その解析回ごとに`Documents/model_inputs/`へ保存します。向き補正、長辺1024px以内への縮小、JPEG化を終えたファイルのバイト列を保存し、同じファイルのURLを推論へ渡します。ファイル名は`20260928_211504_123_000001_abcdef12.jpg`のように日時・写真番号・解析IDを含みます。再解析した場合も新しい入力JPEGを保存します。
++For batch analysis, put image folders in `Documents/images/<set>/` (Files › On My iPad / On My iPhone › Local Nutrition ›
++images); they are listed in the app and can be analysed in full or the first N images in file-name order.
++Folders elsewhere (e.g. iCloud Drive) can be chosen with the folder picker; their files must be downloaded to
++the device first. Batch analysis always uses the *none* condition, because one
++typed weight cannot belong to several photographs.
+ 
+-各解析後に`Documents/analysis-log.jsonl`を更新します。1行が1解析で、`modelInputFilename`に`model_inputs/<ファイル名>.jpg`、写真番号、モデルID、解析モード、栄養値、失敗理由、生の応答、プロンプト、解析時間などを記録します。`ResearchExport/results.csv`と`ResearchExport/analysis-log.jsonl`にも入力ファイル名と解析モードを含めます。フォルダ一括解析のJSONにも各画像の`modelInputFilename`と解析モードを記録します。以前のアプリで解析した記録には、この入力JPEGは残っていないので項目は空です。
++## Requirements
+ 
+-比較するときは、Finderの端末「ファイル」タブからLocal Nutritionの`model_inputs`フォルダと`analysis-log.jsonl`をMacへコピーし、入力JPEGを研究走行版の`Documents/images/appcheck/`へ入れて実行します。元写真が保存される`MealPhotos`とは別です。どちらのモードも長辺1024px以下に正規化した同じJPEGをMLXへ渡します。通常モードではMLX側で512pxにリサイズし、研究プロトコルモードでは`preprocessor_config.json`の画素上限で処理します。同一画像を比較するときは`model_inputs`のJPEGを双方で使ってください。2Bと4Bの出力を比較する場合は、モデル差も結果に影響します。
++- iPhone or iPad with Apple silicon and at least 8 GB of memory (developed on iPad Air 11-inch, M4, 12 GB;
++  also installed on iPhone 17 Pro)
++- iOS / iPadOS 18 or later
++- A Mac with Xcode, and an Apple developer account to sign the app
+ 
+-## 研究プロトコルモード
++## Build
+ 
+-「端末内で栄養を推定」の「解析モード」で切り替えます。既定の「通常」は従来の利用者向け設定です。「研究プロトコル」は`LLM-Local/VLM-Local/BatchRunnerView.swift`の`BASE`をそのまま使い、L0・none条件（明示的な空のsystem）で、温度0、最大256トークン、反復ペナルティなし、JSON完成時の早期終了なしで生成します。入力画像は通常モードと同じ長辺1024pxの正規化JPEGです。MLX側の画像処理にはモデルフォルダの`preprocessor_config.json`から`min_pixels`/`max_pixels`（nullの場合は`size.shortest_edge`/`size.longest_edge`）を渡します。数値の読取は研究走行版の3段階（JSON → キー補完 → 正規表現）です。5項目が揃わない場合は画面上の推定を失敗とし、生の応答は残します。研究走行版の解析スクリプトは欠損値をnullとして扱うため、欠損を含む行まで比較するときは生の応答を使用してください。
++1. Open `LocalNutrition.xcodeproj` in Xcode. Swift packages are resolved from `Package.resolved`.
++2. In *Signing & Capabilities*, choose your own Team (the repository contains no team identifier) and, if
++   needed, change the bundle identifier.
++3. Select the connected device and Run.
+ 
+-撮影・単一画像・写真の複数選択・フォルダ一括解析で同じモードが効きます。モードはアプリ再起動後も保持され、一括解析開始時に固定します。一括解析の途中再開ではモデル・フォルダ・画像一覧に加えてモードも一致させるため、条件の異なる結果は混ざりません。`analysis-log.jsonl`と一括JSONには`analysisMode`（`consumer` / `research_protocol`）と読取段階の`parseStage`を記録します。論文への「同一出力」の記載には、更新版を実機に入れ、同一モデル・同一JPEGで研究走行版との値を照合する受け入れテストが必要です。
++## Models
+ 
+-撮影時に写真番号を000001から自動採番し、元画像のファイル名にも番号を付けます。既存の記録はアプリ起動時に番号を割り当て、元画像のファイル名を変えずに記録を保持します。履歴の「解析用データを書き出す」を押すと、「ファイル」アプリの「このiPhone / iPad内 → Local Nutrition → ResearchExport」に`photos/000001.jpg`などの画像、`results.csv`、`records.json`ができます。CSVは解析1回ごとに1行で、写真番号、モデルID、栄養5項目、状態、時刻を持ちます。JSONには各解析のプロンプトと生の応答も含めます。CSVとJSONは画面から共有できます。画像は同フォルダの`photos`から取り出せます。
++The weights are not included. Download them on the Mac and prepare a folder for the device:
+ 
+-このMacには4B・8Bの重みがキャッシュされています。必要なモデルについて同梱の`prepare-models.sh 4B`または`prepare-models.sh 8B`を実行すると、アプリのソースとは別の`outputs/ModelTransfer`に転送用フォルダを作れます。Finderで接続端末を開き、「ファイル」タブのLocal Nutritionへそのモデルフォルダをドラッグし、アプリで「追加済みモデルを再確認」を押してください。別のMacに端末を接続していても構いません。端末の「ファイル」にモデルフォルダがある場合は、アプリの「モデルのフォルダを追加」から選ぶこともできます。空き容量が必要です。モデル転送用フォルダをGitHubへ公開する必要はありません。
++```sh
++huggingface-cli download mlx-community/Qwen3-VL-4B-Instruct-4bit
++./prepare-models.sh 4B            # also 2B or 8B
++```
+ 
+-## iCloud Driveフォルダの一括解析
++`prepare-models.sh` copies the cached snapshot to `../ModelTransfer/Qwen3-VL-4B-Instruct-4bit/` and writes
++the snapshot revision (`*.revision.txt`) and the SHA-256 of the weight files (`*.sha256.txt`). Copy the folder to
++the device with Finder (device › Files › Local Nutrition) and tap *追加済みモデルを再確認* (re-check installed
++models). The app records the SHA-256 of the weights it actually used with every analysis.
+ 
+-iPhone・iPad共通の「フォルダの画像を一括解析」から、iCloud Driveまたは端末内の画像フォルダを選択できます。サブフォルダ内も含め、画像ファイルをファイル名順に1枚ずつ読み込み、選択中の2B・4B・8Bモデルで解析します。アプリ側に枚数上限は設けていません。写真アプリからの複数選択や、「ファイル」から画像ファイルの複数選択もできます。
++The paper used `mlx-community/Qwen3-VL-4B-Instruct-4bit`, revision `2fd8dacbdb8f1e54b8c005f081ec5bf79c56376b`
++(`model.safetensors` SHA-256 `90eeb02604181dbcccd0a30a1f550a4a8928ca7dcbee4aee1449239306cfdfca`, identical to the
++weights recorded on the tablet). The 2B model: revision `9c4f5209e57b31f4b9dfba735de3fb983739c9cc`.
+ 
+-結果は`このiPhone / iPad内 → Local Nutrition → BatchExports`に、例えば`Qwen3-VL-2B_research_protocol_20260928_211504_12345678.json`の名前で保存します。JSONにはモデルID、解析モード、開始・終了時刻、選択数、フォルダ名、各画像の相対パス、元画像のSHA-256、写真番号、栄養5項目、解析状態、エラー、生の応答、プロンプト、所要時間が入ります。iCloud側の同じ画像とMac上で照合するときは、相対パスまたはSHA-256を使えます。元画像は食事記録用にアプリ内にもコピーされます。
++## Records and exports (in the app's Documents folder, visible in the Files app)
+ 
+-解析結果JSONは1枚終わるごとに更新されます。中止やアプリ終了後、同じフォルダと同じモデルを選ぶと、最後の保存時点から再開します。停止中に処理していた1枚は再解析される場合があります。フォルダ内の画像の追加・削除で一覧が変わった場合は新しい実行として記録します。完了した解析を同じモデルで再実行した場合も新しいJSONを作ります。失敗した画像はエラーをJSONに残して次へ進みます。iOSで長時間解析する場合は、電源につなぎ、アプリを前面に開いたままにしてください。結果JSONは画面の共有ボタンからiCloud Driveへ保存できます。端末の空き容量と発熱にも注意してください。
++| Path | Content |
++|---|---|
++| `MealPhotos/` | original photographs |
++| `model_inputs/` | the normalised JPEG given to the model, one per analysis |
++| `analysis-log.jsonl` | one line per analysis (see below) |
++| `ResearchExport/` | `results.csv`, `records.json`, `analysis-log.jsonl`, `photos/` (created from the history screen) |
++| `BatchExports/` | one JSON file per batch run |
+ 
+-Xcode設定の対象デバイスは`1,2`で、iPhone・iPadの両方を含みます。同じアプリをそれぞれの端末にインストールします。
++Fields of `analysis-log.jsonl`: `analysisMode` (`research_protocol` / `consumer`), `condition` (`none` / `W`),
++`declaredWeight_g`, `prompt` (full text sent), `rawResponse` (model output, unchanged), `parseStage`
++(`json` / `rescued_keys` / `rescued_regex`), `nutrition` (parsed values **multiplied by the portion factor the
++user selected**; use `rawResponse` for analysis), `portionMultiplier`, `modelID`, `modelWeightsSHA256`,
++`modelInputFilename`, `generationSeconds` (image preprocessing and generation, model loading excluded),
++`seconds` (whole analysis including model loading), `deviceModel`, `osVersion`, `appVersion`, `libraries`,
++`generationSettings`, `photoNumber`, `photoFilename`, `recordID`, `runID`, `analyzedAt`, `status`, `error`.
+ 
+-## 保存と書き出し
++## Acceptance test (identity with the research batch application)
+ 
+-原寸の写真はアプリのDocuments/MealPhotosに個別のJPEGとして保存します。日時、食事区分、メモ、栄養推定値、分量倍率、モデルID、生の応答、プロンプト、解析時間はアプリ内に保存します。写真を保存する前に栄養解析は実行しません。結果は解析終了後に自動保存します。
++1. In the app, research protocol mode, 4B, take 10 or more photographs of different meals (no weight).
++2. Copy `model_inputs/` and `analysis-log.jsonl` from the device.
++3. Put the JPEGs into `Documents/images/appcheck/` of the research batch application (tag `paper2-ipad-run`) on
++   the **same device**, with the same model folder, and run the `none` condition.
++4. Compare:
+ 
+-履歴の詳細から原寸の写真を書き出せます。JSON出力にはメタデータと写真のファイル名を含め、写真は別ファイルです。JSONの日時はISO 8601形式です。アプリの削除で記録も削除されます。
++```sh
++# --app also accepts a batch export JSON (BatchExports/*.json)
++python3 tools/compare_acceptance.py --app analysis-log.jsonl \
++    --ref appcheck_Qwen3-VL-4B-Instruct-4bit_L0.jsonl \
++    --weights-sha ../ModelTransfer/Qwen3-VL-4B-Instruct-4bit.sha256.txt
++```
+ 
+-画像解析にインターネットやAPIキーは不要です。写真をサーバーに送信する処理はありません。書き出しでは利用者が共有先を選びます。
++The script pairs the two outputs by file name and reports the proportion of identical raw responses and
++identical energy values (expected: 100 %, same device, same bytes, temperature 0). It exits with status 1 if
++any pair differs.
++
++The batch application has no weight condition, so the W condition is verified by its prompt text only.
++
++## Privacy
+ 
+-## Xcode
++Photographs, model inputs and results stay in the app's container on the device. Inference makes no network
++request; the app contains no analytics. Exports are shared only when the user chooses a destination.
+ 
+-LocalNutrition.xcodeprojをXcodeで開き、接続したiPhoneまたはiPadを実行先としてRunします。約1.7GBの2Bモデルを同梱しており、初回に端末へ転送されます。依存ライブラリの初回取得にはインターネットを使います。
++## Food composition data
+ 
+-- 対象：iOS / iPadOS 18以降。iPhone・iPad両方をインストール対象に設定しています。初版はiPad Air 11インチ（M4）とiPhone 17 Pro（iOS 26.6.1）にインストール済みです。iPhoneでの撮影・応答生成は利用者提供の画面で確認しています。
+-- iPhoneの縦画面では撮影・解析を上下に配置し、余白と分量操作を小さい画面に合わせます。
+-- iPhone・iPad共通版はXcodeでビルド成功済みです（2026年9月27日）。
+-- モデル：mlx-community/Qwen3-VL-2B-Instruct-4bit、リビジョン9c4f5209e57b31f4b9dfba735de3fb983739c9cc。4B・8Bは端末に追加した場合に選択可能です。
+-- MLX Swift LM：604fae710a4e3324346fc59e3845952350acd4b7。
+-- MLX Swift：0.31.6、swift-transformers：1.3.0。
+-- 写真保存と推論入力を分離。通常モードは推論用に長辺1024px以内に正規化したJPEGを解析回ごとに保存し、モデルの画像処理は512px、温度0、最大160トークン、反復ペナルティ1.1（直近64トークン）。研究プロトコルモードは上記の別設定です。
+-- 画像ごとに新しいセッションを使います。
+-- 数値5項目だけのJSONを要求し、最初のJSONオブジェクトが完成した時点で生成を止めます。古い記録のbasis（説明文）は読み込めますが、新しい応答には必須ではありません。
++`Resources/foods.json` (used only by the optional manual calculator, not by the model):
++「日本食品標準成分表（八訂）増補2023年から引用」 — *Standard Tables of Food Composition in Japan 2020 (Eighth
++Revised Edition), Supplement 2023*, Ministry of Education, Culture, Sports, Science and Technology, Japan
++(https://www.mext.go.jp/a_menu/syokuhinseibun/mext_00001.html). Values are per 100 g edible portion. MEXT states that the food composition data may be used freely, including in
++applications, provided the source is cited as above.
+ 
+-検証画像の選択画面と自動テスト起動は通常の撮影・記録画面から外しています。
++## Licence
+ 
+-開発用アプリの証明書が未信頼というエラーが出た場合、端末の「設定 → 一般 → VPNとデバイス管理 → 開発者APP」で、ご自身の開発用アカウントを信頼してから再実行します。Macを信頼する接続設定とは別の設定です。
++MIT License, © 2026 Shin-ichi Nakagawa (see `LICENSE`). The food composition data and the model files are not
++covered by this licence (see the end of `LICENSE`). Third-party components: see `THIRD_PARTY_NOTICES.txt`. Model weights: see the model card of each
++`mlx-community/Qwen3-VL-*-Instruct-4bit` repository.
+ 
+-## 栄養値
++## History
+ 
+-カロリー、たんぱく質、脂質、炭水化物、食塩相当量を推定します。写真からの値は概算です。重量、油、調味料、塩分は写真だけでは確定できません。
+-
+-「食品成分表から計算する」を開くと、食品と可食部の重さを指定して別途計算できます。出典は文部科学省「日本食品標準成分表（八訂）増補2023年」（2026年3月訂正反映版）から引用。可食部100g当たりの値を使います。Trは計算上0、括弧付きの値は数値として使い、欠損の食塩相当量はデータ不足と表示します。
+-
+-出典：https://www.mext.go.jp/a_menu/syokuhinseibun/mext_00001.html
+-
+-## 確認状況
+-
+-iOS向けのコードチェックと、写真の保存・読み込み、解析前の保存、解析失敗時の写真保持、日時の保持、再解析での重複防止、記録の更新・再読み込みのテストを実施しています。XcodeでiPad向けにビルドし、接続したiPad Airにインストール・起動済みです。実機のカメラで撮影した4032×3024pxのJPEGがDocuments/MealPhotosに保存されていることと、栄養解析・結果保存の完了ログを確認しました。
+-
+-実機の保存領域全体をMacへコピーする確認は、iPadOSの画面スナップショットのアクセス制限で途中終了しました。撮影JPEGの取得は成功しています。記録の再読み込みは保存処理のテストで確認済みですが、実機を再起動した後の履歴表示は未確認です。
+-
+-## 出力反復の修正（2026年9月27日）
+-
+-利用者のiPhone画面で、basisの説明文が反復し、JSONが閉じないまま終了する不具合を確認しました。現在のソースでは、説明文を要求しない出力形式、最大160トークン、反復ペナルティ、完全なJSONでの早期終了を実装しています。未完成のJSONを数値として救済しません。失敗・中止した応答、プロンプト、解析時間、エラー、生成設定も同じ食事の記録に保存し、JSON出力で確認できます。
+-
+-数値だけのJSON、途中終了した反復出力の拒否、文字列内の括弧・エスケープ、ストリームの途中で誤停止しないこと、失敗時の診断情報の保存・再読み込みをテストし、iOS向けのコードチェックも通過しています。修正版での実モデル推論はMac2のロックのため未確認です。iPhoneにインストール済みの初版には、この修正はまだ反映されていません。
+-
+-修正版をXcodeから端末に更新した後、「記録」から該当する食事を開いて「この記録を開いて編集・再解析」を選び、「栄養を再解析」を押すと、元の写真で確認できます。出力形式の修正と栄養推定の精度確認は別です。包装の写真からは中身の重量を確定できません。
+-
+-## モデル切替・連番出力の確認状況（2026年9月28日）
+-
+-このソースについて、iOS向けSwiftコードチェック、連番の付与、写真とCSV/JSONの対応、3モデル分の解析履歴、失敗した解析の書き出しをテスト済みです。このMacのキャッシュに4B・8Bモデルの必要ファイルがあることも確認しました。研究プロトコル追加後の更新版は、2026年9月28日にXcode画面上で「Any iOS Device (arm64)」向けのビルドが成功し、接続したiPad Air 11インチ（M4）にインストールしてアプリのプロセスへ接続できました。4B・8Bの実機推論と端末からの書き出しは未確認です。
+-
+-フォルダ一括解析の追加後、800件の入力名と結果を1つのJSONへ保存・再読み込みするテスト、途中結果の再開判定、画像ハッシュの安定性を確認しています。iPhone・iPad向けのSwiftコードチェックも通過しています。iCloud Drive上の実フォルダでの800枚連続推論は未実施です。
+-
+-研究走行版との比較用に、推論へ渡すJPEGのバイト列が保存ファイルと一致すること、1解析1行のJSONLに対応する入力ファイル名が残ることもテスト済みです。4Bを既定にした更新版は、まだiPhone・iPadでの実機推論を確認していません。
+-
+-4Bの転送用フォルダは`outputs/ModelTransfer/Qwen3-VL-4B-Instruct-4bit`に準備済みです（約2.9GB）。必要な設定・トークナイザー・重みファイルが揃い、参照先のないシンボリックリンクが残っていないことを確認しています。端末への4Bフォルダの転送は未確認です。
+-
+-## ライセンス
+-
+-モデル：https://huggingface.co/mlx-community/Qwen3-VL-2B-Instruct-4bit 、https://huggingface.co/mlx-community/Qwen3-VL-4B-Instruct-4bit 、https://huggingface.co/mlx-community/Qwen3-VL-8B-Instruct-4bit （Apache-2.0）。2Bのみアプリに同梱します。
+-TokenizerアダプターはMITライセンスのMLX Swift LMに準拠しています。THIRD_PARTY_NOTICES.txtを参照してください。
++`docs/CHANGES.md` lists the changes made for publication. The development notes of the first version are
++kept in `docs/README_codex_2026-09_ja.md` (Japanese).
+diff --git a/THIRD_PARTY_NOTICES.txt b/THIRD_PARTY_NOTICES.txt
+index a8d1c45..b181483 100644
+--- a/THIRD_PARTY_NOTICES.txt
++++ b/THIRD_PARTY_NOTICES.txt
+@@ -1,3 +1,16 @@
++Third-party software used by Local Nutrition (resolved versions in Package.resolved)
++
++- mlx-swift 0.31.6 (ml-explore) — MIT License, reproduced below
++- mlx-swift-lm 604fae7 (ml-explore) — MIT License (same text as below)
++- swift-transformers 1.3.0 (Hugging Face) — see the package's LICENSE file
++- swift-jinja, swift-huggingface, swift-collections, swift-numerics, swift-crypto, swift-nio,
++  swift-asn1, swift-atomics, swift-system, swift-syntax, swift-argument-parser, eventsource, yyjson
++  — transitive dependencies; see each package's LICENSE file
++
++Model weights (not distributed here): Qwen3-VL Instruct, 4-bit MLX conversions by mlx-community;
++see the model cards for their licence.
++
++----------------------------------------------------------------------
+ MIT License
+ 
+ Copyright (c) 2024 ml-explore
+diff --git a/docs/CHANGES.md b/docs/CHANGES.md
+new file mode 100644
+index 0000000..5ce29d8
+--- /dev/null
++++ b/docs/CHANGES.md
+@@ -0,0 +1,62 @@
++# Changes for publication (2026-10-04)
++
++Starting point: the version developed with Codex (2026-09-27 to 10-03). The inference path of the research
++protocol mode was checked line by line against the research batch application (tag `paper2-ipad-run`) and found
++identical in prompt string, message structure, generation parameters, pixel limits and library versions. The
++following changes were then made.
++
++## Research protocol
++- **Weight (W) condition added.** An optional field "料理だけの重さ" (weight of the food only) appears in
++  research protocol mode. When filled, `The total weight of the food shown is {W} g.` is appended to the prompt
++  (`ResearchProtocol.promptText(declaredWeight:)`); when empty the prompt is the Appendix A string unchanged
++  (none condition). Values 1–5,000 g; full-width digits and thousands separators accepted. The field is cleared
++  for every new photograph. Batch analysis always uses the none condition.
++- **Model input rendered in sRGB** (`UIGraphicsImageRendererFormat.preferredRange = .standard`), so that the
++  JPEG given to the model no longer depends on the colour gamut of the device screen (Display P3 photographs).
++  Model inputs created before this change may differ.
++
++## User interface
++- **Folder, multi-file, single-file and model-folder pickers fixed.** Four `.fileImporter` modifiers were
++  attached to the same view; SwiftUI presents only one of them, so "画像フォルダを選ぶ" and the file pickers
++  showed nothing. Replaced by one importer whose content types depend on the button pressed.
++- **Image sets inside the app.** Folders placed in `Documents/images/<set>/` (Files › On My iPad ›
++  Local Nutrition › images) are listed in the batch panel and can be analysed without a file picker, all
++  images or the first N in file-name order. Same layout as the research batch application.
++
++- **Increased memory limit entitlement** (`com.apple.developer.kernel.increased-memory-limit`), as in the
++  research batch application. Without it the 4B model was terminated on iPhone. It changes the memory the system
++  allows the app, not the computation.
++
++- **English user interface.** `Localization.swift` holds the Japanese→English table; the interface follows the
++  device language (Japanese if the first preferred language is Japanese, English otherwise) until the user
++  switches with the "English / 日本語" button in the toolbar (kept in UserDefaults). Values stored in
++  records and exports (analysis status, meal types) remain Japanese and are translated only on display. Prompts and
++  computation are unchanged.
++
++## Records
++- New fields in every analysis record and in `analysis-log.jsonl`: `condition`, `declaredWeight_g`,
++  `generationSeconds` (preprocessing + generation, model loading excluded, measured as in the batch application),
++  `modelWeightsSHA256` (SHA-256 of each `*.safetensors` file), `deviceModel`, `osVersion`, `appVersion`,
++  `libraries`.
++- Changing the portion after analysis no longer drops fields of the analysis record
++  (`AnalysisRun.updatingPortion`).
++- `results.csv`: the row written for a photograph without analysis had one cell more than the header; fixed.
++  New columns `condition`, `declared_weight_g`, `generation_seconds`.
++- `generationSettings` string of the research mode updated to describe the condition and the input
++  normalisation.
++
++## Repository
++- `tools/compare_acceptance.py`: pairs the app log with the batch application output by file name and reports
++  identical raw responses / energy values, and checks the weight hashes. Accepts analysis-log.jsonl or a
++  batch export JSON. First run (2026-10-04, iPad Air M4, iPadOS 26.6.2, 4B): 17/17 model inputs (11 photographs)
++  gave identical raw responses with the research batch application.
++- `prepare-models.sh`: 2B/4B/8B; writes the snapshot revision and SHA-256 of the weights; English messages.
++- Removed the personal development team identifier from the Xcode project.
++- Removed the development console output (`NUTRITION_SMOKE_PASS/FAIL`).
++- Removed `Resources/Samples` (meal images no longer used by the app).
++- Weights excluded by `.gitignore`. README rewritten in English; the first README is kept in
++  `docs/README_codex_2026-09_ja.md`.
++
++## Not changed
++- Consumer mode (prompt, settings) — not part of the paper.
++- Research protocol prompt, generation parameters, preprocessing limits, libraries.
+diff --git a/docs/README_codex_2026-09_ja.md b/docs/README_codex_2026-09_ja.md
+new file mode 100644
+index 0000000..5a93e04
+--- /dev/null
++++ b/docs/README_codex_2026-09_ja.md
+@@ -0,0 +1,110 @@
++# Local Nutrition — カメラで食事を記録するiPhone・iPadアプリ
++
++iPhone・iPadのカメラで撮影した食事の写真を保存し、端末内のQwen3-VLによる栄養推定値を同じ記録に追加します。
++
++## 使い方
++
++1. 「食事を撮影して記録」を押します。初回は端末でカメラへのアクセスを許可します。
++2. 食事を撮影し、カメラ画面で撮影した写真の使用を確定します。
++3. 原寸のJPEGと撮影日時が先に保存され、栄養解析が始まります。
++4. 朝食・昼食・夕食・間食の区分、メモ、食べる分量を変更できます。変更後は保存ボタンを押します。
++5. 「記録」から過去の写真・撮影日時・メモ・栄養推定値を確認できます。
++
++撮影をキャンセルした場合は新しい記録を作りません。解析に失敗しても写真は残ります。履歴の「この記録を開いて編集・再解析」から再度解析できます。再解析は同じ写真に新しい解析履歴を追加します。
++
++## 2B・4B・8Bの切替と解析用データ
++
++「端末内で栄養を推定」のモデル選択で2B・4B・8Bを切り替えられます。2Bはアプリに同梱します。4Bと8Bは別途端末に追加してください。同じ写真を3モデルで順に再解析すると、元画像を1枚のまま、各モデルの結果・生の応答・実行時刻・所要時間・設定を記録します。失敗した解析も履歴に残します。モデルは切替時に1つずつメモリへ読み込みます。8Bは約5.4GBのモデルで、iPhone 17 Proでの実行可否はまだ実機で確認していません。
++
++モデル選択の既定は4Bです。4Bはアプリに同梱していないため、端末へモデルフォルダを追加してから4B解析を実行してください。未追加のまま撮影した場合も写真は保存され、モデル追加後に再解析できます。2Bは手動で選択できます。
++
++## 研究走行版との実画像比較
++
++撮影後、解析で実際にモデルへ渡す正規化済みJPEGを、その解析回ごとに`Documents/model_inputs/`へ保存します。向き補正、長辺1024px以内への縮小、JPEG化を終えたファイルのバイト列を保存し、同じファイルのURLを推論へ渡します。ファイル名は`20260928_211504_123_000001_abcdef12.jpg`のように日時・写真番号・解析IDを含みます。再解析した場合も新しい入力JPEGを保存します。
++
++各解析後に`Documents/analysis-log.jsonl`を更新します。1行が1解析で、`modelInputFilename`に`model_inputs/<ファイル名>.jpg`、写真番号、モデルID、解析モード、栄養値、失敗理由、生の応答、プロンプト、解析時間などを記録します。`ResearchExport/results.csv`と`ResearchExport/analysis-log.jsonl`にも入力ファイル名と解析モードを含めます。フォルダ一括解析のJSONにも各画像の`modelInputFilename`と解析モードを記録します。以前のアプリで解析した記録には、この入力JPEGは残っていないので項目は空です。
++
++比較するときは、Finderの端末「ファイル」タブからLocal Nutritionの`model_inputs`フォルダと`analysis-log.jsonl`をMacへコピーし、入力JPEGを研究走行版の`Documents/images/appcheck/`へ入れて実行します。元写真が保存される`MealPhotos`とは別です。どちらのモードも長辺1024px以下に正規化した同じJPEGをMLXへ渡します。通常モードではMLX側で512pxにリサイズし、研究プロトコルモードでは`preprocessor_config.json`の画素上限で処理します。同一画像を比較するときは`model_inputs`のJPEGを双方で使ってください。2Bと4Bの出力を比較する場合は、モデル差も結果に影響します。
++
++## 研究プロトコルモード
++
++「端末内で栄養を推定」の「解析モード」で切り替えます。既定の「通常」は従来の利用者向け設定です。「研究プロトコル」は`LLM-Local/VLM-Local/BatchRunnerView.swift`の`BASE`をそのまま使い、L0・none条件（明示的な空のsystem）で、温度0、最大256トークン、反復ペナルティなし、JSON完成時の早期終了なしで生成します。入力画像は通常モードと同じ長辺1024pxの正規化JPEGです。MLX側の画像処理にはモデルフォルダの`preprocessor_config.json`から`min_pixels`/`max_pixels`（nullの場合は`size.shortest_edge`/`size.longest_edge`）を渡します。数値の読取は研究走行版の3段階（JSON → キー補完 → 正規表現）です。5項目が揃わない場合は画面上の推定を失敗とし、生の応答は残します。研究走行版の解析スクリプトは欠損値をnullとして扱うため、欠損を含む行まで比較するときは生の応答を使用してください。
++
++撮影・単一画像・写真の複数選択・フォルダ一括解析で同じモードが効きます。モードはアプリ再起動後も保持され、一括解析開始時に固定します。一括解析の途中再開ではモデル・フォルダ・画像一覧に加えてモードも一致させるため、条件の異なる結果は混ざりません。`analysis-log.jsonl`と一括JSONには`analysisMode`（`consumer` / `research_protocol`）と読取段階の`parseStage`を記録します。論文への「同一出力」の記載には、更新版を実機に入れ、同一モデル・同一JPEGで研究走行版との値を照合する受け入れテストが必要です。
++
++撮影時に写真番号を000001から自動採番し、元画像のファイル名にも番号を付けます。既存の記録はアプリ起動時に番号を割り当て、元画像のファイル名を変えずに記録を保持します。履歴の「解析用データを書き出す」を押すと、「ファイル」アプリの「このiPhone / iPad内 → Local Nutrition → ResearchExport」に`photos/000001.jpg`などの画像、`results.csv`、`records.json`ができます。CSVは解析1回ごとに1行で、写真番号、モデルID、栄養5項目、状態、時刻を持ちます。JSONには各解析のプロンプトと生の応答も含めます。CSVとJSONは画面から共有できます。画像は同フォルダの`photos`から取り出せます。
++
++このMacには4B・8Bの重みがキャッシュされています。必要なモデルについて同梱の`prepare-models.sh 4B`または`prepare-models.sh 8B`を実行すると、アプリのソースとは別の`outputs/ModelTransfer`に転送用フォルダを作れます。Finderで接続端末を開き、「ファイル」タブのLocal Nutritionへそのモデルフォルダをドラッグし、アプリで「追加済みモデルを再確認」を押してください。別のMacに端末を接続していても構いません。端末の「ファイル」にモデルフォルダがある場合は、アプリの「モデルのフォルダを追加」から選ぶこともできます。空き容量が必要です。モデル転送用フォルダをGitHubへ公開する必要はありません。
++
++## iCloud Driveフォルダの一括解析
++
++iPhone・iPad共通の「フォルダの画像を一括解析」から、iCloud Driveまたは端末内の画像フォルダを選択できます。サブフォルダ内も含め、画像ファイルをファイル名順に1枚ずつ読み込み、選択中の2B・4B・8Bモデルで解析します。アプリ側に枚数上限は設けていません。写真アプリからの複数選択や、「ファイル」から画像ファイルの複数選択もできます。
++
++結果は`このiPhone / iPad内 → Local Nutrition → BatchExports`に、例えば`Qwen3-VL-2B_research_protocol_20260928_211504_12345678.json`の名前で保存します。JSONにはモデルID、解析モード、開始・終了時刻、選択数、フォルダ名、各画像の相対パス、元画像のSHA-256、写真番号、栄養5項目、解析状態、エラー、生の応答、プロンプト、所要時間が入ります。iCloud側の同じ画像とMac上で照合するときは、相対パスまたはSHA-256を使えます。元画像は食事記録用にアプリ内にもコピーされます。
++
++解析結果JSONは1枚終わるごとに更新されます。中止やアプリ終了後、同じフォルダと同じモデルを選ぶと、最後の保存時点から再開します。停止中に処理していた1枚は再解析される場合があります。フォルダ内の画像の追加・削除で一覧が変わった場合は新しい実行として記録します。完了した解析を同じモデルで再実行した場合も新しいJSONを作ります。失敗した画像はエラーをJSONに残して次へ進みます。iOSで長時間解析する場合は、電源につなぎ、アプリを前面に開いたままにしてください。結果JSONは画面の共有ボタンからiCloud Driveへ保存できます。端末の空き容量と発熱にも注意してください。
++
++Xcode設定の対象デバイスは`1,2`で、iPhone・iPadの両方を含みます。同じアプリをそれぞれの端末にインストールします。
++
++## 保存と書き出し
++
++原寸の写真はアプリのDocuments/MealPhotosに個別のJPEGとして保存します。日時、食事区分、メモ、栄養推定値、分量倍率、モデルID、生の応答、プロンプト、解析時間はアプリ内に保存します。写真を保存する前に栄養解析は実行しません。結果は解析終了後に自動保存します。
++
++履歴の詳細から原寸の写真を書き出せます。JSON出力にはメタデータと写真のファイル名を含め、写真は別ファイルです。JSONの日時はISO 8601形式です。アプリの削除で記録も削除されます。
++
++画像解析にインターネットやAPIキーは不要です。写真をサーバーに送信する処理はありません。書き出しでは利用者が共有先を選びます。
++
++## Xcode
++
++LocalNutrition.xcodeprojをXcodeで開き、接続したiPhoneまたはiPadを実行先としてRunします。約1.7GBの2Bモデルを同梱しており、初回に端末へ転送されます。依存ライブラリの初回取得にはインターネットを使います。
++
++- 対象：iOS / iPadOS 18以降。iPhone・iPad両方をインストール対象に設定しています。初版はiPad Air 11インチ（M4）とiPhone 17 Pro（iOS 26.6.1）にインストール済みです。iPhoneでの撮影・応答生成は利用者提供の画面で確認しています。
++- iPhoneの縦画面では撮影・解析を上下に配置し、余白と分量操作を小さい画面に合わせます。
++- iPhone・iPad共通版はXcodeでビルド成功済みです（2026年9月27日）。
++- モデル：mlx-community/Qwen3-VL-2B-Instruct-4bit、リビジョン9c4f5209e57b31f4b9dfba735de3fb983739c9cc。4B・8Bは端末に追加した場合に選択可能です。
++- MLX Swift LM：604fae710a4e3324346fc59e3845952350acd4b7。
++- MLX Swift：0.31.6、swift-transformers：1.3.0。
++- 写真保存と推論入力を分離。通常モードは推論用に長辺1024px以内に正規化したJPEGを解析回ごとに保存し、モデルの画像処理は512px、温度0、最大160トークン、反復ペナルティ1.1（直近64トークン）。研究プロトコルモードは上記の別設定です。
++- 画像ごとに新しいセッションを使います。
++- 数値5項目だけのJSONを要求し、最初のJSONオブジェクトが完成した時点で生成を止めます。古い記録のbasis（説明文）は読み込めますが、新しい応答には必須ではありません。
++
++検証画像の選択画面と自動テスト起動は通常の撮影・記録画面から外しています。
++
++開発用アプリの証明書が未信頼というエラーが出た場合、端末の「設定 → 一般 → VPNとデバイス管理 → 開発者APP」で、ご自身の開発用アカウントを信頼してから再実行します。Macを信頼する接続設定とは別の設定です。
++
++## 栄養値
++
++カロリー、たんぱく質、脂質、炭水化物、食塩相当量を推定します。写真からの値は概算です。重量、油、調味料、塩分は写真だけでは確定できません。
++
++「食品成分表から計算する」を開くと、食品と可食部の重さを指定して別途計算できます。出典は文部科学省「日本食品標準成分表（八訂）増補2023年」（2026年3月訂正反映版）から引用。可食部100g当たりの値を使います。Trは計算上0、括弧付きの値は数値として使い、欠損の食塩相当量はデータ不足と表示します。
++
++出典：https://www.mext.go.jp/a_menu/syokuhinseibun/mext_00001.html
++
++## 確認状況
++
++iOS向けのコードチェックと、写真の保存・読み込み、解析前の保存、解析失敗時の写真保持、日時の保持、再解析での重複防止、記録の更新・再読み込みのテストを実施しています。XcodeでiPad向けにビルドし、接続したiPad Airにインストール・起動済みです。実機のカメラで撮影した4032×3024pxのJPEGがDocuments/MealPhotosに保存されていることと、栄養解析・結果保存の完了ログを確認しました。
++
++実機の保存領域全体をMacへコピーする確認は、iPadOSの画面スナップショットのアクセス制限で途中終了しました。撮影JPEGの取得は成功しています。記録の再読み込みは保存処理のテストで確認済みですが、実機を再起動した後の履歴表示は未確認です。
++
++## 出力反復の修正（2026年9月27日）
++
++利用者のiPhone画面で、basisの説明文が反復し、JSONが閉じないまま終了する不具合を確認しました。現在のソースでは、説明文を要求しない出力形式、最大160トークン、反復ペナルティ、完全なJSONでの早期終了を実装しています。未完成のJSONを数値として救済しません。失敗・中止した応答、プロンプト、解析時間、エラー、生成設定も同じ食事の記録に保存し、JSON出力で確認できます。
++
++数値だけのJSON、途中終了した反復出力の拒否、文字列内の括弧・エスケープ、ストリームの途中で誤停止しないこと、失敗時の診断情報の保存・再読み込みをテストし、iOS向けのコードチェックも通過しています。修正版での実モデル推論はMac2のロックのため未確認です。iPhoneにインストール済みの初版には、この修正はまだ反映されていません。
++
++修正版をXcodeから端末に更新した後、「記録」から該当する食事を開いて「この記録を開いて編集・再解析」を選び、「栄養を再解析」を押すと、元の写真で確認できます。出力形式の修正と栄養推定の精度確認は別です。包装の写真からは中身の重量を確定できません。
++
++## モデル切替・連番出力の確認状況（2026年9月28日）
++
++このソースについて、iOS向けSwiftコードチェック、連番の付与、写真とCSV/JSONの対応、3モデル分の解析履歴、失敗した解析の書き出しをテスト済みです。このMacのキャッシュに4B・8Bモデルの必要ファイルがあることも確認しました。研究プロトコル追加後の更新版は、2026年9月28日にXcode画面上で「Any iOS Device (arm64)」向けのビルドが成功し、接続したiPad Air 11インチ（M4）にインストールしてアプリのプロセスへ接続できました。4B・8Bの実機推論と端末からの書き出しは未確認です。
++
++フォルダ一括解析の追加後、800件の入力名と結果を1つのJSONへ保存・再読み込みするテスト、途中結果の再開判定、画像ハッシュの安定性を確認しています。iPhone・iPad向けのSwiftコードチェックも通過しています。iCloud Drive上の実フォルダでの800枚連続推論は未実施です。
++
++研究走行版との比較用に、推論へ渡すJPEGのバイト列が保存ファイルと一致すること、1解析1行のJSONLに対応する入力ファイル名が残ることもテスト済みです。4Bを既定にした更新版は、まだiPhone・iPadでの実機推論を確認していません。
++
++4Bの転送用フォルダは`outputs/ModelTransfer/Qwen3-VL-4B-Instruct-4bit`に準備済みです（約2.9GB）。必要な設定・トークナイザー・重みファイルが揃い、参照先のないシンボリックリンクが残っていないことを確認しています。端末への4Bフォルダの転送は未確認です。
++
++## ライセンス
++
++モデル：https://huggingface.co/mlx-community/Qwen3-VL-2B-Instruct-4bit 、https://huggingface.co/mlx-community/Qwen3-VL-4B-Instruct-4bit 、https://huggingface.co/mlx-community/Qwen3-VL-8B-Instruct-4bit （Apache-2.0）。2Bのみアプリに同梱します。
++TokenizerアダプターはMITライセンスのMLX Swift LMに準拠しています。THIRD_PARTY_NOTICES.txtを参照してください。
+diff --git a/prepare-models.sh b/prepare-models.sh
+index 4669ff8..256ce3d 100755
+--- a/prepare-models.sh
++++ b/prepare-models.sh
+@@ -1,27 +1,43 @@
+ #!/bin/zsh
++# Prepare a Qwen3-VL model folder for transfer to the device (Finder > device > Files > Local Nutrition).
++# The weights are not part of this repository. Download them once on the Mac, e.g.
++#   huggingface-cli download mlx-community/Qwen3-VL-4B-Instruct-4bit
++# then run:  ./prepare-models.sh 4B   [destination-directory]
++# The script copies the Hugging Face cache snapshot, and writes the snapshot revision and the
++# SHA-256 of every *.safetensors file next to the folder (used by tools/compare_acceptance.py).
+ set -euo pipefail
+ 
+-if [[ $# -ne 1 || ( "$1" != "4B" && "$1" != "8B" ) ]]; then
+-  print -u2 "使い方: ./prepare-models.sh 4B または ./prepare-models.sh 8B"
++if [[ $# -lt 1 || ( "$1" != "2B" && "$1" != "4B" && "$1" != "8B" ) ]]; then
++  print -u2 "usage: ./prepare-models.sh 2B|4B|8B [destination-directory]"
+   exit 2
+ fi
+ 
+ size="$1"
+ name="Qwen3-VL-${size}-Instruct-4bit"
+-cache="$HOME/.cache/huggingface/hub/models--mlx-community--${name}/snapshots"
++cache="${HF_HUB_CACHE:-${HF_HOME:-$HOME/.cache/huggingface}/hub}/models--mlx-community--${name}/snapshots"
+ snapshots=("$cache"/*(N/))
+ if (( ${#snapshots} == 0 )); then
+-  print -u2 "Mac上に${size}モデルが見つかりません: $cache"
++  print -u2 "model not found in the Hugging Face cache: $cache"
+   exit 1
+ fi
++if (( ${#snapshots} > 1 )); then
++  print -u2 "several snapshots found; using the first. Remove old ones to be explicit:"
++  print -u2 -l -- "${snapshots[@]}"
++fi
+ 
+-source="${snapshots[1]}"
+-destination="${0:A:h:h}/ModelTransfer/$name"
++source_dir="${snapshots[1]}"
++revision="${source_dir:t}"
++dest_root="${2:-${0:A:h:h}/ModelTransfer}"
++destination="$dest_root/$name"
+ mkdir -p "$destination"
+-rsync -aL "$source/" "$destination/"
++rsync -aL --delete "$source_dir/" "$destination/"
+ if [[ ! -f "$destination/config.json" || ! -f "$destination/tokenizer.json" ]]; then
+-  print -u2 "モデルファイルを準備できませんでした"
++  print -u2 "model files could not be prepared"
+   exit 1
+ fi
+-print "準備完了: $destination"
+-print "Finderの端末 → ファイル → Local Nutritionへ、このフォルダを転送してください。"
++print "mlx-community/${name} revision ${revision}" > "$dest_root/${name}.revision.txt"
++( cd "$destination" && shasum -a 256 *.safetensors ) > "$dest_root/${name}.sha256.txt"
++print "ready   : $destination"
++print "revision: $revision"
++print "sha256  : $dest_root/${name}.sha256.txt"
++print "Transfer the folder with Finder (device > Files > Local Nutrition), then tap 'Re-check installed models'."
+diff --git a/tools/compare_acceptance.py b/tools/compare_acceptance.py
+new file mode 100755
+index 0000000..4f45107
+--- /dev/null
++++ b/tools/compare_acceptance.py
+@@ -0,0 +1,171 @@
++#!/usr/bin/env python3
++"""Acceptance test: Local Nutrition (research protocol, none condition) vs the research batch application.
++
++Both applications must be run on the same device with the same model folder. The app writes the exact
++JPEG it gave to the model into Documents/model_inputs/; those files are copied into the batch application's
++Documents/images/appcheck/ and run there under the "none" condition. This script pairs the two outputs by
++file name and reports agreement.
++
++--app accepts the app's analysis-log.jsonl or a batch export JSON (BatchExports/*.json).
++
++Usage:
++  python3 compare_acceptance.py --app analysis-log.jsonl \
++      --ref appcheck_Qwen3-VL-4B-Instruct-4bit_L0.jsonl [--weights-sha shasum.txt] [--out result.csv]
++
++  --weights-sha : output of `shasum -a 256 *.safetensors` for the model folder copied to the device
++                  (optional; compared with the hashes the app recorded).
++Exit status 0 when every paired image gives an identical raw response, 1 otherwise.
++"""
++import argparse, csv, json, os, re, sys
++
++BASE = ("Look at this food image. Estimate the nutritional content based solely on visual "
++        "appearance\u2014color, shape, ingredients, and portion size. Do NOT read any text, labels, "
++        "or numbers visible in the image. Use only visual information. Provide a brief one-line "
++        "explanation of your reasoning. Respond ONLY in JSON format: {energy_kcal: value, "
++        "protein_g: value, fat_g: value, carb_g: value, salt_g: value, basis: one-line reasoning}")
++FIELDS = ["energy_kcal", "protein_g", "fat_g", "carb_g", "salt_g"]
++NUM = r"-?\d+(?:\.\d+)?"
++
++
++def _numbers(obj):
++    out = {}
++    for f in FIELDS:
++        v = obj.get(f)
++        if isinstance(v, (int, float)) and not isinstance(v, bool):
++            out[f] = float(v)
++        elif isinstance(v, str):
++            m = re.search(NUM, v)
++            if m:
++                out[f] = float(m.group())
++    return out
++
++
++def parse(raw):
++    """Three stages as in the app (json -> quoted keys -> regex). Returns (energy or None, stage)."""
++    t = raw.strip()
++    t = re.sub(r"^```(?:json)?\s*", "", t)
++    t = re.sub(r"\s*```$", "", t)
++    try:
++        o = json.loads(t)
++        if isinstance(o, dict) and "energy_kcal" in _numbers(o):
++            return _numbers(o)["energy_kcal"], "json"
++    except ValueError:
++        pass
++    a, b = t.find("{"), t.rfind("}")
++    if a != -1 and b > a:
++        q = re.sub(r"([{,]\s*)([A-Za-z_][A-Za-z0-9_]*)(\s*:)", r'\1"\2"\3', t[a:b + 1])
++        try:
++            o = json.loads(q)
++            if isinstance(o, dict) and "energy_kcal" in _numbers(o):
++                return _numbers(o)["energy_kcal"], "rescued_keys"
++        except ValueError:
++            pass
++    m = re.search(r"energy_kcal\D*?(" + NUM + ")", t)
++    if m:
++        return float(m.group(1)), "rescued_regex"
++    return None, "fail"
++
++
++def read_jsonl(path):
++    rows = []
++    with open(path, encoding="utf-8") as fh:
++        for i, line in enumerate(fh, 1):
++            line = line.strip()
++            if line:
++                try:
++                    rows.append(json.loads(line))
++                except ValueError:
++                    print(f"warning: {path}:{i} is not JSON, skipped", file=sys.stderr)
++    return rows
++
++
++def main():
++    ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
++    ap.add_argument("--app", required=True)
++    ap.add_argument("--ref", required=True)
++    ap.add_argument("--weights-sha")
++    ap.add_argument("--out", default="acceptance_result.csv")
++    a = ap.parse_args()
++
++    app = {}
++    skipped = {"not_research": 0, "not_none": 0, "no_input": 0, "not_analysed": 0}
++    if a.app.endswith(".json"):
++        with open(a.app, encoding="utf-8") as fh:
++            batch = json.load(fh)
++        app_rows = batch.get("items", []) if isinstance(batch, dict) else batch
++    else:
++        app_rows = read_jsonl(a.app)
++    for r in app_rows:
++        if r.get("analysisMode") != "research_protocol":
++            skipped["not_research"] += 1; continue
++        if r.get("condition") not in (None, "none") or r.get("prompt") != BASE:
++            skipped["not_none"] += 1; continue
++        if not r.get("modelInputFilename"):
++            skipped["no_input"] += 1; continue
++        if r.get("status") != "解析済み" and not r.get("rawResponse"):
++            skipped["not_analysed"] += 1; continue
++        app[os.path.basename(r["modelInputFilename"])] = r
++
++    ref = {}
++    for r in read_jsonl(a.ref):
++        if r.get("cond") == "none" and not r.get("error"):
++            ref[r["image"]] = r
++
++    keys = sorted(set(app) & set(ref))
++    rows, raw_same, kcal_same, diffs = [], 0, 0, []
++    for k in keys:
++        ra, rr = app[k].get("rawResponse", ""), ref[k].get("raw", "")
++        ea, sa = parse(ra)
++        er, sr = parse(rr)
++        same_raw = ra == rr
++        same_kcal = ea is not None and er is not None and ea == er
++        raw_same += same_raw; kcal_same += same_kcal
++        if ea is not None and er is not None:
++            diffs.append(ea - er)
++        rows.append({"image": k, "raw_identical": int(same_raw), "kcal_identical": int(same_kcal),
++                     "kcal_app": ea, "kcal_ref": er, "stage_app": sa, "stage_ref": sr,
++                     "gen_sec_app": app[k].get("generationSeconds"), "sec_ref": ref[k].get("sec"),
++                     "model_app": app[k].get("modelID"), "model_ref": ref[k].get("model"),
++                     "device_app": app[k].get("deviceModel"), "device_ref": ref[k].get("device")})
++
++    with open(a.out, "w", newline="", encoding="utf-8") as fh:
++        w = csv.DictWriter(fh, fieldnames=list(rows[0].keys()) if rows else ["image"])
++        w.writeheader(); w.writerows(rows)
++
++    n = len(keys)
++    print(f"app research/none rows: {len(app)}  (skipped: {skipped})")
++    print(f"reference none rows   : {len(ref)}")
++    print(f"paired by file name   : {n}")
++    for name, only in (("app only", set(app) - set(ref)), ("reference only", set(ref) - set(app))):
++        if only:
++            print(f"  {name}: {len(only)} e.g. {sorted(only)[:3]}")
++    if n:
++        print(f"raw response identical: {raw_same}/{n} ({100 * raw_same / n:.1f}%)")
++        print(f"energy identical      : {kcal_same}/{n} ({100 * kcal_same / n:.1f}%)")
++        if diffs:
++            print(f"mean energy difference (app - ref): {sum(diffs) / len(diffs):+.2f} kcal")
++        for r in rows:
++            if not r["raw_identical"]:
++                print(f"  differs: {r['image']}  app={r['kcal_app']}  ref={r['kcal_ref']}")
++
++    if a.weights_sha:
++        expected = {}
++        with open(a.weights_sha) as fh:
++            for line in fh:
++                parts = line.split()
++                if len(parts) >= 2:
++                    expected[os.path.basename(parts[-1])] = parts[0].lower()
++        recorded = {r.get("modelWeightsSHA256") for r in app.values()} - {None}
++        for rec in sorted(recorded):
++            got = dict(p.split("=", 1) for p in rec.split(";") if "=" in p)
++            ok = got == expected
++            print(f"weights hash {'matches' if ok else 'DOES NOT match'} --weights-sha ({len(got)} files)")
++        if not recorded:
++            print("weights hash: not recorded by the app (older version?)")
++
++    print(f"table written to {a.out}")
++    sys.exit(0 if n and raw_same == n else 1)
++
++
++if __name__ == "__main__":
++    main()
